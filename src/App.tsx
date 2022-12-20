@@ -1,11 +1,14 @@
 import React from 'react';
-import Home from './views/home/index';
+import GlobalStyles from './styles/index';
+import { RoutesApp } from './routes/index';
+import { BrowserRouter } from 'react-router-dom';
 
 const App=()=> {
   return (
-    <div>
-      <Home />
-    </div>
+    <BrowserRouter>
+      <RoutesApp/>
+      <GlobalStyles />
+    </BrowserRouter>
   );
 }
 
