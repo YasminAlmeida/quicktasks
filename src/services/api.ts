@@ -12,18 +12,26 @@ export const api = {
   
   getTasks: async () => {
     let response = await axiosInstance.get("/tasks");
-    return response;
+    return response.data;
+  },
+  getSingleTask: async (id: number) => {
+    let response = await axiosInstance.get(`/tasks/${id}`);
+    return response.data;
   },
   postTasks: async (data: any) => {
     let response = await axiosInstance.post("/tasks", data);
     return response;
   },
-  putTasks: async (data: any) => {
-    let response = await axiosInstance.put("/tasks", data);
+  putTasks: async (id: number, data: any) => {
+    let response = await axiosInstance.put(`/tasks/${id}`, data);
     return response;
   },
   getUsers: async () => {
     let response = await axiosInstance.get("/users");
+    return response.data;
+  },
+  getSingleUser: async (id: number) => {
+    let response = await axiosInstance.get(`/users/${id}`);
     return response.data;
   },
   postUsers: async (data: any) => {
@@ -33,6 +41,23 @@ export const api = {
   putUsers: async (data: any) => {
     let response = await axiosInstance.put("/users", data);
     return response;
+  },
+  getCategories: async () => {
+    let response = await axiosInstance.get("/categories");
+    return response.data;
+  },
+  getSingleCategory: async (id: number) => {
+    let response = await axiosInstance.get(`/categories/${id}`);
+    return response.data;
+  },
+  postCategory: async (data: any) => {
+    let response = await axiosInstance.post("/categories", data);
+    return response;
+  },
+  putCategory: async (id: number, data: any) => {
+    let response = await axiosInstance.put(`/categories/${id}`, data);
+    return response;
   }
+  
 }
 
