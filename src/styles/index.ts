@@ -8,6 +8,6 @@ export default createGlobalStyle`
     font-family: serif, -apple-system,'Segoe UI', Roboto, sans-serif;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     list-style: none;
-    
+    color: #333;
   }
 `;
