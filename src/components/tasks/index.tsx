@@ -1,8 +1,8 @@
 import React, {useId} from "react";
 import { IResponseTask } from "../../types/typesInterface";
 import * as S from "./styles";
-import Dots from "../assets/dots.svg";
-import Tool from "../assets/tool.gif"
+import Dots from "../../assets/dots.svg";
+import Tool from "../../assets/tool.gif"
 import { useNavigate } from "react-router-dom";
 
 
@@ -36,7 +36,7 @@ export const Tasks = ({ tasks }: Props): JSX.Element => {
                 <>                  
                   <S.ContainersTasks  
                     onClick={() => navigate(`/task/${tasks.id}`)}
-                    key={id}
+                    key={tasks.id.toString()}
                     style={{
                       backgroundImage: `url(${Dots})`,
                       objectFit: "cover",
@@ -68,12 +68,16 @@ export const Tasks = ({ tasks }: Props): JSX.Element => {
                 <>
                   <S.ContainersTasks
                     onClick={() => navigate(`/task/${tasks.id}`)}
-                    key={id}
+                    key={tasks.id.toString()}
                     style={{
                       backgroundImage: `url(${Dots})`,
                       objectFit: "cover",
                     }}
                   >
+                     <S.ContainerAbsolut>
+                      <S.NameCategory>{tasks.category.name}</S.NameCategory>
+                      <S.Btn><img src={Tool} alt="tool" /></S.Btn>
+                    </S.ContainerAbsolut>
                     <S.LeftContainer>
                       <S.TextStatus
                         color={modificationOfColorDependesOfResponseTaskStatus(
@@ -94,12 +98,16 @@ export const Tasks = ({ tasks }: Props): JSX.Element => {
                 <>
                   <S.ContainersTasks
                     onClick={() => navigate(`/task/${tasks.id}`)}
-                    key={id}
+                    key={tasks.id.toString()}
                     style={{
                       backgroundImage: `url(${Dots})`,
                       objectFit: "cover",
                     }}
                   >
+                    <S.ContainerAbsolut>
+                      <S.NameCategory>{tasks.category.name}</S.NameCategory>
+                      <S.Btn><img src={Tool} alt="tool" /></S.Btn>
+                    </S.ContainerAbsolut>
                     <S.LeftContainer>
                       <S.TextStatus
                         color={modificationOfColorDependesOfResponseTaskStatus(
