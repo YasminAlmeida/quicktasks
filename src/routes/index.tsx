@@ -5,7 +5,7 @@ import { SingleTask } from "../views/singletask";
 
 export const RoutesApp = () => {
   return(
-      <Routes>
+      <Routes> 
         <Route path="/" element={<Home/>}/>
         <Route path="/task/:id" element={<SingleTask/>}/>
       </Routes>
