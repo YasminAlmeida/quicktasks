@@ -20,3 +20,18 @@ export interface IResponseTask {
 export interface IResponseUser {
   data: IResponseTask[],
 }
+
+export interface IUpdateTask{
+    id?: number,
+    taskStatus: string,
+    priorities: string,
+    description: string,
+    client: {
+        id: number,
+        name: string,
+    },
+    category: {
+        id: number,
+        name: string
+    }
+}
