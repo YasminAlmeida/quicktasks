@@ -3,15 +3,17 @@ import * as S from "./styles";
 
 import Tasks from "../../components/tasks";
 import Filter from "../../components/filter";
+import PostTask from "../../components/postTask";
 
 import { IResponseTask } from "../../types/typesInterface";
+import { ICreateTask } from "../../types/typesInterface";
 import { api } from "../../services/api";
 
 const Home = () => {
   const [tasks, setTasks] = React.useState<IResponseTask[]>([]);
   const [filterType, setFilterType] = React.useState("none");
   const [filterValue, setFilterValue] = React.useState("none");
-
+  const [tasksCreate, setTaskstasksCreate] = React.useState<ICreateTask>({} as ICreateTask);
   useEffect(() => {
     handleSearch();
   }, []);
@@ -46,14 +48,17 @@ const Home = () => {
 
   return (
     <S.HomeContainer>
-      <Filter
-        filterType={filterType}
-        setFilterType={setFilterType}
-        filterValue={filterValue}
-        setFilterValue={setFilterValue}
-        handleSearch={handleSearch}
-        ResetTheFilter={ResetTheFilter}
-      />
+      <S.ContainerTop>
+        <PostTask tasksCreated={tasksCreate} />
+        <Filter
+          filterType={filterType}
+          setFilterType={setFilterType}
+          filterValue={filterValue}
+          setFilterValue={setFilterValue}
+          handleSearch={handleSearch}
+          ResetTheFilter={ResetTheFilter}
+        />        
+      </S.ContainerTop>
       <Tasks tasks={tasks} />
     </S.HomeContainer>
   );

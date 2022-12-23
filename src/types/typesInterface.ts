@@ -35,3 +35,16 @@ export interface IUpdateTask{
         name: string
     }
 }
+export interface ICreateTask{
+    taskStatus: string,
+    priorities: string,
+    description: string,
+    client: {
+        id: number,
+        name: string,
+    },
+    category: {
+        id: number,
+        name: string
+    }
+}

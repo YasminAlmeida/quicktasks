@@ -23,7 +23,7 @@ export const api = {
     return response;
   },
   putTasks: async (id: number, data: any) => {
-    let response = await axiosInstance.put(`/tasks/${id}`, data);
+    let response = await axiosInstance.put(`/tasks`, data);
     return response;
   },
   getUsers: async () => {

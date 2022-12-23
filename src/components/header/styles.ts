@@ -23,6 +23,14 @@ export const SidebarContainer = styled.a`
     border-radius: 0.2rem;
     z-index: -1;
     margin-left: 10px;
+    @media (max-width: 768px) {
+      width: 1rem;
+      height: 1rem;
+      bottom: 10px;
+    }
+  }
+  @media (max-width: 768px) {
+    margin-top: 10px;
   }
 `;
 
@@ -32,5 +40,8 @@ export const Title = styled.h1`
   margin: 1rem 0;
   position: relative;
   z-index: 1;
-  margin-left: 5px;
+  margin-left: 5px;  
+  @media (max-width: 768px) {
+    font-size: 2.2rem;
+  }
 `;

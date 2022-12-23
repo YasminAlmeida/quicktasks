@@ -54,7 +54,14 @@ export const PutTask = ({ tasksUpdate }: Props): JSX.Element => {
                 {client.name}
               </option>
             ))}
-          </S.Select>{" "}
+          </S.Select>
+          <S.Label htmlFor="">Priority</S.Label>
+          <S.Select id="" {...register("priorities")}>
+            <option value="URGENT">Urgent</option>
+            <option value="HIGH">High</option>
+            <option value="NORMAL">Normal</option>
+            <option value="LOW">Low</option>
+          </S.Select>
           <S.Label htmlFor="">Status</S.Label>
           <S.Select id="" {...register("taskStatus")}>
             <option value="Open">Open</option>
