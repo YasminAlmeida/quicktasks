@@ -1,12 +1,15 @@
-import React  from 'react';
+import React from 'react';
 import * as S from './styles';
 
 
 const Header = () => {
-  return(
-    <S.SidebarContainer>
-      <S.Title>QuickTasks</S.Title>
-    </S.SidebarContainer>
+  return (
+    <>
+      <S.SidebarContainer href='http://localhost:3000'>
+        <S.Title>QuickTasks</S.Title>
+      </S.SidebarContainer>
+    </>
+
   )
 }
 
