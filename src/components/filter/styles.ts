@@ -18,6 +18,10 @@ export const COntainerFilter = styled.section`
   background-repeat: no-repeat;
   padding: 10px 20px 12px 40px;
   position: relative;
+  @media (max-width: 768px) {
+    background-image: none;
+    padding: 10px 20px 12px 5px;
+  }
 `;
 export const Btn = styled.button`
   background: linear-gradient(90deg, #9f8fff 100%, #7b68ee 0);
@@ -30,6 +34,13 @@ export const Btn = styled.button`
   cursor: pointer;
   right: 0;
   position: absolute;
+  @media (max-width: 768px) {
+    background-image: url(${Searchicon});
+    background-position: 5px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 0px;
+    color: transparent
+  }
 `;
 export const Select = styled.select`
   border: none;
@@ -41,5 +52,8 @@ export const Select = styled.select`
     border-color: #fea;
     box-shadow: 0 0 0 2px #9f8fff;
     outline: none;
+  }
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
   }
 `;
