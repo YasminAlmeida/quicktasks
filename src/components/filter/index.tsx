@@ -9,43 +9,99 @@ type IProps = {
   setFilterType: (filterType: string) => void;
   filterValue: string;
   setFilterValue: (filterValue: string) => void;
+  handleSearch : () =>void;
+  ResetTheFilter: () => void;
 };
 
 export const Filter = ({
   filterType,
   setFilterType,
   filterValue,
+  handleSearch,
   setFilterValue,
+  ResetTheFilter
 }: IProps): JSX.Element => {
   const [clients, setClients] = React.useState<IResponseTask["client"][]>([]);
-
+  const [status, setStatus] = React.useState<IResponseTask["taskStatus"][]>([]);
+  const [priorities, setPriority] = React.useState<IResponseTask["priorities"][]>(
+    []
+  );
+  const [category, setCategory] = React.useState<IResponseTask["category"][]>(
+    []
+  );
+ 
   React.useEffect(() => {
     getClients();
+    getStatus();
+    getPriority();
+    getCategory();
   }, []);
 
- async function getClients() {
+  
+
+  async function getClients() {
     const res = await api.getUsers();
     setClients(res);
-    console.log(res)
   }
-
+  async function getStatus() {
+    const res = await api.getTasks();
+    setStatus(res.taskStatus);
+  }
+  async function getPriority() {
+    const res = await api.getTasks();
+    setPriority(res.priorities);
+  }
+  async function getCategory() {
+    const res = await api.getCategories();
+    setCategory(res);
+  }
   return (
     <S.COntainerFilter>
-      <S.Select onChange={(e) => setFilterType(e.target.value)}>
-        <option value={"none"}>Nenhum</option>
-        <option value={"users"}>Usiario</option>
+      <S.Select onChange={(e) => setFilterType(e.target.value)} value={filterType}>
+        <option value={"none"}>None</option>
+        <option value={"users"}>User</option>
+        <option value={"status"}>Status</option>
+        <option value={"priority"}>Priorities</option>
+        <option value={"category"}>Category</option>
       </S.Select>
-
       {filterType === "users" && (
         <S.Select onChange={(e) => setFilterValue(e.target.value)}>
           {clients.map((client) => (
-            <option key={client.id.toString() + client.name} value={client.id}>{client.name}</option>
+            <option key={client.id.toString() + client.name} value={client.id}>
+              {client.name}
+            </option>
           ))}
         </S.Select>
       )}
-      {filterType !== "none" && (
-        <button  >Buscar</button>
+      {filterType === "status" && (
+        <S.Select onChange={(e) => setFilterValue(e.target.value)}>
+          <option value={1}>Open</option>
+          <option value={2}>InProgress</option>
+          <option value={3}>Closed</option>
+        </S.Select>
       )}
+      {filterType === "priority" && (
+        <S.Select onChange={(e) => setFilterValue(e.target.value)}>
+          <option value={1}>Urgent</option>
+          <option value={2}>Hitgh</option>
+          <option value={3}>Normal</option>
+          <option value={4}>Low</option>
+        </S.Select>
+      )}
+      {filterType === "category" && (
+        <S.Select onChange={(e) => setFilterValue(e.target.value)}>
+          {category.map((category) => (
+            <option
+              key={category.id.toString() + category.name}
+              value={category.id}
+            >
+              {category.name}
+            </option>
+          ))}
+        </S.Select>
+      )}
+      {filterType !== "none" && <S.Btn onClick={handleSearch} >Buscar</S.Btn>}
+      {filterType === "none" && <S.Btn onClick={ResetTheFilter} >Reset</S.Btn>}
     </S.COntainerFilter>
   );
 };

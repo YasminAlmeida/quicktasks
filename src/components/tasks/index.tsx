@@ -1,10 +1,9 @@
-import React, {useId} from "react";
+import React from "react";
 import { IResponseTask } from "../../types/typesInterface";
 import * as S from "./styles";
 import Dots from "../../assets/dots.svg";
-import Tool from "../../assets/tool.gif"
+import Tool from "../../assets/tool.gif";
 import { useNavigate } from "react-router-dom";
-
 
 type Props = {
   tasks: IResponseTask[];
@@ -24,107 +23,119 @@ function modificationOfColorDependesOfResponseTaskStatus(
 }
 
 export const Tasks = ({ tasks }: Props): JSX.Element => {
-  const id = useId();
   const navigate = useNavigate();
   return (
     <S.SectionContainerTask>
       <S.TasksContainer>
         {tasks.map((tasks) => {
           return (
-            <>
-              {tasks.category.id === 1 && (
-                <>                  
-                  <S.ContainersTasks  
-                    onClick={() => navigate(`/task/${tasks.id}`)}
-                    key={tasks.id.toString()}
-                    style={{
-                      backgroundImage: `url(${Dots})`,
-                      objectFit: "cover",
-                    }}
-                  >
-                    <S.ContainerAbsolut>
-                      <S.NameCategory>{tasks.category.name}</S.NameCategory>
-                      <S.Btn><img src={Tool} alt="tool" /></S.Btn>
-                    </S.ContainerAbsolut>
-                    
-                    <S.LeftContainer>
-                      <S.TextStatus
-                        color={modificationOfColorDependesOfResponseTaskStatus(
-                          tasks
-                        )}
-                      >
-                        {tasks.taskStatus}
-                      </S.TextStatus>
-                      <p>{tasks.client.name}</p>
-                    </S.LeftContainer>
-                    <div>
-                      <p>{tasks.description}</p>
-                    </div>
+            <section>
+              <div>
+                {tasks.category.id === 1 && (
+                  <>
+                    <S.ContainersTasks
+                      onClick={() => navigate(`/task/${tasks.id}`)}
+                      key={tasks.id.toString()}
+                      style={{
+                        backgroundImage: `url(${Dots})`,
+                        objectFit: "cover",
+                      }}
+                    >
+                      <S.ContainerAbsolut>
+                        <S.NameCategory>{tasks.category.name}</S.NameCategory>
+                        <S.Btn>
+                          <img src={Tool} alt="tool" />
+                        </S.Btn>
+                      </S.ContainerAbsolut>
 
-                  </S.ContainersTasks>
-                </>
-              )}
-              {tasks.category.id === 2 && (
-                <>
-                  <S.ContainersTasks
-                    onClick={() => navigate(`/task/${tasks.id}`)}
-                    key={tasks.id.toString()}
-                    style={{
-                      backgroundImage: `url(${Dots})`,
-                      objectFit: "cover",
-                    }}
-                  >
-                     <S.ContainerAbsolut>
-                      <S.NameCategory>{tasks.category.name}</S.NameCategory>
-                      <S.Btn><img src={Tool} alt="tool" /></S.Btn>
-                    </S.ContainerAbsolut>
-                    <S.LeftContainer>
-                      <S.TextStatus
-                        color={modificationOfColorDependesOfResponseTaskStatus(
-                          tasks
-                        )}
-                      >
-                        {tasks.taskStatus}
-                      </S.TextStatus>
-                      <p>{tasks.client.name}</p>
-                    </S.LeftContainer>
-                    <div>
-                      <p>{tasks.description}</p>
-                    </div>
-                  </S.ContainersTasks>
-                </>
-              )}
-              {tasks.category.id === 3 && (
-                <>
-                  <S.ContainersTasks
-                    onClick={() => navigate(`/task/${tasks.id}`)}
-                    key={tasks.id.toString()}
-                    style={{
-                      backgroundImage: `url(${Dots})`,
-                      objectFit: "cover",
-                    }}
-                  >
-                    <S.ContainerAbsolut>
-                      <S.NameCategory>{tasks.category.name}</S.NameCategory>
-                      <S.Btn><img src={Tool} alt="tool" /></S.Btn>
-                    </S.ContainerAbsolut>
-                    <S.LeftContainer>
-                      <S.TextStatus
-                        color={modificationOfColorDependesOfResponseTaskStatus(
-                          tasks
-                        )}
-                      >
-                        {tasks.taskStatus}
-                      </S.TextStatus>
-                      <p>{tasks.client.name}</p>
-                    </S.LeftContainer>
-                    <div>
-                      <p>{tasks.description}</p>
-                    </div>
-                  </S.ContainersTasks>
-                </>
-              )}
-            </>
+                      <S.LeftContainer>
+                        <S.TextStatus
+                          color={modificationOfColorDependesOfResponseTaskStatus(
+                            tasks
+                          )}
+                        >
+                          {tasks.taskStatus}
+                        </S.TextStatus>
+                        <p>{tasks.client.name}</p>
+                      </S.LeftContainer>
+                      <div>
+                        <p>{tasks.description}</p>
+                      </div>
+                    </S.ContainersTasks>
+                  </>
+                )}
+              </div>
+
+              <div>
+                {tasks.category.id === 2 && (
+                  <>
+                    <S.ContainersTasks
+                      onClick={() => navigate(`/task/${tasks.id}`)}
+                      key={tasks.id.toString()}
+                      style={{
+                        backgroundImage: `url(${Dots})`,
+                        objectFit: "cover",
+                      }}
+                    >
+                      <S.ContainerAbsolut>
+                        <S.NameCategory>{tasks.category.name}</S.NameCategory>
+                        <S.Btn>
+                          <img src={Tool} alt="tool" />
+                        </S.Btn>
+                      </S.ContainerAbsolut>
+                      <S.LeftContainer>
+                        <S.TextStatus
+                          color={modificationOfColorDependesOfResponseTaskStatus(
+                            tasks
+                          )}
+                        >
+                          {tasks.taskStatus}
+                        </S.TextStatus>
+                        <p>{tasks.client.name}</p>
+                      </S.LeftContainer>
+                      <div>
+                        <p>{tasks.description}</p>
+                      </div>
+                    </S.ContainersTasks>
+                  </>
+                )}
+              </div>
+
+              <div>
+                {tasks.category.id === 3 && (
+                  <>
+                    <S.ContainersTasks
+                      onClick={() => navigate(`/task/${tasks.id}`)}
+                      key={tasks.id.toString()}
+                      style={{
+                        backgroundImage: `url(${Dots})`,
+                        objectFit: "cover",
+                      }}
+                    >
+                      <S.ContainerAbsolut>
+                        <S.NameCategory>{tasks.category.name}</S.NameCategory>
+                        <S.Btn>
+                          <img src={Tool} alt="tool" />
+                        </S.Btn>
+                      </S.ContainerAbsolut>
+                      <S.LeftContainer>
+                        <S.TextStatus
+                          color={modificationOfColorDependesOfResponseTaskStatus(
+                            tasks
+                          )}
+                        >
+                          {tasks.taskStatus}
+                        </S.TextStatus>
+                        <p>{tasks.client.name}</p>
+                      </S.LeftContainer>
+                      <div>
+                        <p>{tasks.description}</p>
+                      </div>
+                    </S.ContainersTasks>
+                  </>
+                )}
+              </div>
+            </section>
           );
         })}
       </S.TasksContainer>

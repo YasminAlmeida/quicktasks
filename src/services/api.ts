@@ -57,6 +57,26 @@ export const api = {
   putCategory: async (id: number, data: any) => {
     let response = await axiosInstance.put(`/categories/${id}`, data);
     return response;
+  },
+
+
+  //gets for the filter
+
+  getTaskByUser: async (id: number) => {
+    let response = await axiosInstance.get(`/tasks/user/${id}`);
+    return response.data;
+  },
+  getTaskByCategory: async (id: number) => {
+    let response = await axiosInstance.get(`/tasks/categories/${id}`);
+    return response.data;
+  },
+  getTaskByStatus: async (id: number) => {
+    let response = await axiosInstance.get(`/tasks/status/${id}`);
+    return response.data;
+  },
+  getTaskByPriority: async (id: number) => {
+    let response = await axiosInstance.get(`/tasks/priority/${id}`);
+    return response.data;
   }
   
 }
