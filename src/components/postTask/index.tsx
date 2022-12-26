@@ -3,6 +3,7 @@ import * as S from "./styles";
 import { useForm } from "react-hook-form";
 import { api } from "../../services/api";
 import { ICreateTask } from "../../types/typesInterface";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   tasksCreated: ICreateTask;
@@ -19,6 +20,7 @@ export const PostTask = ({ tasksCreated }: Props): JSX.Element => {
     reset,
     formState: { errors },
   } = useForm<ICreateTask>();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     getClients();
@@ -57,17 +59,20 @@ export const PostTask = ({ tasksCreated }: Props): JSX.Element => {
             <S.Modal>
               <S.Form onSubmit={handleSubmit(onSubmit)}>
                 <S.ContainerLeft>
-                  <S.Label htmlFor="">User Name</S.Label>
-                  <S.Select id="" {...register("client.id")}>
-                    {clients.map((client) => (
-                      <option
-                        key={client.id.toString() + client.name}
-                        value={client.id}
-                      >
-                        {client.name}
-                      </option>
-                    ))}
-                  </S.Select>
+                  <div>
+                    <S.Label htmlFor="">User Name</S.Label>
+                    <S.Select id="" {...register("client.id")}>
+                      {clients.map((client) => (
+                        <option
+                          key={client.id.toString() + client.name}
+                          value={client.id}
+                        >
+                          {client.name}
+                        </option>
+                      ))}
+                    </S.Select>
+                    <button type="button"  onClick={() => navigate(`/users`)}>add</button>
+                  </div>
                   <S.Label htmlFor="">Priority</S.Label>
                   <S.Select id="" {...register("priorities")}>
                     <option value="URGENT">Urgent</option>

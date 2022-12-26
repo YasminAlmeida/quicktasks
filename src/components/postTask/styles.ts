@@ -64,6 +64,13 @@ export const Modal = styled.div`
   position: relative;
   opacity: 1;
   border-radius: 10px;
+  @media (max-width: 768px) {
+    width: 350px;
+  }
+  @media (max-width: 500px) {
+    width: 300px;
+    height: 660px;
+  }
 `;
 export const BtnModal = styled.button`
   background: linear-gradient(90deg, #9f8fff 100%, #7b68ee 0);

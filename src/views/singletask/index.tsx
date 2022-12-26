@@ -8,7 +8,6 @@ import PutTask from "../../components/putTask";
 export const SingleTask = () => {
   const { id } = useParams();
   const [tasks, setTasks] = React.useState<IUpdateTask>({} as IUpdateTask);
-
   useEffect(() => {
     if(!id) return;
     api.getSingleTask(+id).then((response) => {

@@ -58,7 +58,7 @@ const Home = () => {
           handleSearch={handleSearch}
           ResetTheFilter={ResetTheFilter}
         />        
-      </S.ContainerTop>
+      </S.ContainerTop> 
       <Tasks tasks={tasks} />
     </S.HomeContainer>
   );

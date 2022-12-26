@@ -48,3 +48,10 @@ export interface ICreateTask{
         name: string
     }
 }
+export interface ICreateUser{
+    id: number,
+    name: string,
+    email: string,
+    phone: string,
+    password: string
+}

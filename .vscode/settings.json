@@ -1,0 +1,11 @@
+{
+  "terminal.integrated.fontSize": 15,
+  "notebook.outputFontSize": 0,
+  "notebook.markup.fontSize": 1,
+  "markdown.preview.fontSize": 14,
+  "debug.console.fontSize": 14,
+  "screencastMode.fontSize": 56,
+  "editor.fontSize": 15,
+  "editor.suggestFontSize": 15,
+  "scm.inputFontSize": 15
+}
