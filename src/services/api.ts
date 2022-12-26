@@ -26,6 +26,10 @@ export const api = {
     let response = await axiosInstance.put(`/tasks`, data);
     return response;
   },
+  deleteTasks: async (id: number) => {
+    let response = await axiosInstance.delete(`/tasks/${id}`);
+    return response;
+  },
   getUsers: async () => {
     let response = await axiosInstance.get("/users");
     return response.data;
@@ -38,9 +42,9 @@ export const api = {
     let response = await axiosInstance.post("/users", data);
     return response;
   },
-  putUsers: async (data: any) => {
-    let response = await axiosInstance.put("/users", data);
-    return response;
+  putUsers: async (id:number, data: any) => {
+    let response = await axiosInstance.put(`/users/${id}`);
+    return response.data;
   },
   getCategories: async () => {
     let response = await axiosInstance.get("/categories");
@@ -58,7 +62,6 @@ export const api = {
     let response = await axiosInstance.put(`/categories/${id}`, data);
     return response;
   },
-
 
   //gets for the filter
 

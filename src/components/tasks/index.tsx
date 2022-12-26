@@ -1,9 +1,13 @@
 import React from "react";
-import { IResponseTask } from "../../types/typesInterface";
 import * as S from "./styles";
+import { useNavigate } from "react-router-dom";
+
+import { api } from "../../services/api";
+import { IResponseTask } from "../../types/typesInterface";
+
 import Dots from "../../assets/dots.svg";
 import Tool from "../../assets/tool.gif";
-import { useNavigate } from "react-router-dom";
+import DeleteIcon from "../../assets/delete.png";
 
 type Props = {
   tasks: IResponseTask[];
@@ -21,7 +25,9 @@ function modificationOfColorDependesOfResponseTaskStatus(
     return "#B2B2B2";
   }
 }
-
+function handleDeleteTask(id: number) {
+  api.deleteTasks(id);
+}
 export const Tasks = ({ tasks }: Props): JSX.Element => {
   const navigate = useNavigate();
   return (
@@ -40,7 +46,12 @@ export const Tasks = ({ tasks }: Props): JSX.Element => {
                         backgroundImage: `url(${Dots})`,
                         objectFit: "cover",
                       }}
-                    >
+                    > <S.DeleteIcon
+                      src={DeleteIcon}
+                      onClick={() => {
+                        handleDeleteTask(tasks.id);
+                      }}
+                    />
                       <S.ContainerAbsolut>
                         <S.NameCategory>{tasks.category.name}</S.NameCategory>
                         <S.Btn>
@@ -77,6 +88,12 @@ export const Tasks = ({ tasks }: Props): JSX.Element => {
                         objectFit: "cover",
                       }}
                     >
+                      <S.DeleteIcon
+                      src={DeleteIcon}
+                      onClick={() => {
+                        handleDeleteTask(tasks.id);
+                      }}
+                    />
                       <S.ContainerAbsolut>
                         <S.NameCategory>{tasks.category.name}</S.NameCategory>
                         <S.Btn>
@@ -111,7 +128,12 @@ export const Tasks = ({ tasks }: Props): JSX.Element => {
                         backgroundImage: `url(${Dots})`,
                         objectFit: "cover",
                       }}
-                    >
+                    > <S.DeleteIcon
+                      src={DeleteIcon}
+                      onClick={() => {
+                        handleDeleteTask(tasks.id);
+                      }}
+                    />
                       <S.ContainerAbsolut>
                         <S.NameCategory>{tasks.category.name}</S.NameCategory>
                         <S.Btn>

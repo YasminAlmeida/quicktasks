@@ -28,9 +28,15 @@ export const ContainersTasks = styled.div`
   grid-template-columns: 150px 1fr;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
+    @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  };
   @media (max-width: 1360px) {
+    margin: 0 auto 0;
     width: 90%;
   }
+
 `;
 export const LeftContainer = styled.div`
   margin-right: 15px;
@@ -62,3 +68,14 @@ export const ContainerAbsolut = styled.div`
   flex-direction: column;
   align-items: flex-end;
 `;
+export const DeleteIcon = styled.img`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 10;
+  left: 0;
+  /* @media (max-width: 480px) {
+    right: 10;
+  } */
+`
