@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { api } from "../../services/api";
 import { ICreateTask } from "../../types/typesInterface";
 import { useNavigate } from "react-router-dom";
-
+import Loading from "../loading";
 type Props = {
   tasksCreated: ICreateTask;
 };
@@ -14,6 +14,7 @@ export const PostTask = ({ tasksCreated }: Props): JSX.Element => {
   const [categories, setCategories] = React.useState<ICreateTask["category"][]>(
     []
   );
+  const [loading, setLoading] = React.useState(false);
   const {
     handleSubmit,
     register,
@@ -29,12 +30,10 @@ export const PostTask = ({ tasksCreated }: Props): JSX.Element => {
       reset(tasksCreated);
     }
   }, [tasksCreated]);
-
   async function getClients() {
     const res = await api.getUsers();
     setClients(res);
   }
-
   async function getCategory() {
     const res = await api.getCategories();
     setCategories(res);
@@ -42,6 +41,7 @@ export const PostTask = ({ tasksCreated }: Props): JSX.Element => {
   function onSubmit(data: ICreateTask) {
     api.postTasks(data);
     setShowModal(false);
+    setLoading(true);
   }
   return (
     <>
@@ -105,7 +105,14 @@ export const PostTask = ({ tasksCreated }: Props): JSX.Element => {
                     id="description"
                     {...register("description")}
                   />
-                  <S.BtnSubmit type="submit">Submit</S.BtnSubmit>
+                  {!loading  &&(
+                    <S.BtnSubmit type="submit">
+                      <Loading />
+                    </S.BtnSubmit>
+                  )}
+                  {loading && (
+                    <S.BtnSubmit type="submit">Submit</S.BtnSubmit>
+                  )}
                 </S.ContainerRigth>
               </S.Form>
               <S.BtnModal onClick={() => setShowModal(false)}>X</S.BtnModal>

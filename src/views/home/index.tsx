@@ -4,6 +4,7 @@ import * as S from "./styles";
 import Tasks from "../../components/tasks";
 import Filter from "../../components/filter";
 import PostTask from "../../components/postTask";
+import Loading from "../../components/loading";
 
 import { IResponseTask } from "../../types/typesInterface";
 import { ICreateTask } from "../../types/typesInterface";
@@ -14,6 +15,7 @@ const Home = () => {
   const [filterType, setFilterType] = React.useState("none");
   const [filterValue, setFilterValue] = React.useState("none");
   const [tasksCreate, setTaskstasksCreate] = React.useState<ICreateTask>({} as ICreateTask);
+  const [loading, setLoading] = React.useState(false);
   useEffect(() => {
     handleSearch();
   }, []);
@@ -39,10 +41,14 @@ const Home = () => {
   };
 
   const ResetTheFilter = () => {
+    setLoading(true);
     setFilterType("none");
     setFilterValue("none");
     api.getTasks().then((response) => {
       setTasks(response);
+    })
+    .finally(() => {
+      setLoading(false);
     });
   }
 
@@ -59,7 +65,10 @@ const Home = () => {
           ResetTheFilter={ResetTheFilter}
         />        
       </S.ContainerTop> 
-      <Tasks tasks={tasks} />
+      {!loading && (
+        <Tasks tasks={tasks} />
+      )}
+      {loading && <Loading />}
     </S.HomeContainer>
   );
 };
