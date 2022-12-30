@@ -56,7 +56,7 @@ export const Filter = ({
     setCategory(res);
   }
   return (
-    <S.COntainerFilter>
+    <S.ContainerFilter>
       <S.Select onChange={(e) => setFilterType(e.target.value)} value={filterType}>
         <option value={"none"}>None</option>
         <option value={"users"}>User</option>
@@ -102,7 +102,7 @@ export const Filter = ({
       )}
       {filterType !== "none" && <S.Btn onClick={handleSearch} >Buscar</S.Btn>}
       {filterType === "none" && <S.Btn onClick={ResetTheFilter} >Reset</S.Btn>}
-    </S.COntainerFilter>
+    </S.ContainerFilter>
   );
 };
 export default Filter;

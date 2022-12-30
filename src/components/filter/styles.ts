@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Searchicon from "../../assets/search.png";
 
-export const COntainerFilter = styled.section`
+export const ContainerFilter = styled.section`
   align-items: center;
   margin: 0 auto 0;
   display: flex;
@@ -18,9 +18,14 @@ export const COntainerFilter = styled.section`
   background-repeat: no-repeat;
   padding: 10px 20px 12px 40px;
   position: relative;
+  /* margin-bottom: 40px; */
   @media (max-width: 768px) {
     background-image: none;
     padding: 10px 20px 12px 5px;
+  }
+  @media (max-width: 600px) {
+    margin: 0;
+    position: relative;
   }
 `;
 export const Btn = styled.button`
