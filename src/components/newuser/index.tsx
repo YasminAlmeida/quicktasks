@@ -4,7 +4,7 @@ import * as S from "./styles";
 import { ICreateUser } from "../../types/typesInterface";
 import { api } from "../../services/api";
 import { useForm } from "react-hook-form";
-
+import Loading from "../loading";
 type Props = {
   usersCreated: ICreateUser;
 };
@@ -13,6 +13,7 @@ export const NewUser = ({ usersCreated }: Props): JSX.Element => {
   const [users, setUsers] = React.useState<ICreateUser[]>([]);
   const [actionType, setActionType] = React.useState<"create" | "update" | "list" >("create" as const);
   const [userSelected, setUserSelected] = React.useState<ICreateUser>({} as ICreateUser);
+  const [loading, setLoading] = React.useState(false);
   const {
     handleSubmit,
     register,
@@ -23,22 +24,23 @@ export const NewUser = ({ usersCreated }: Props): JSX.Element => {
   React.useEffect(() => {
     getUsers();
   }, [usersCreated]);
+
   async function getUsers() {
     const res = await api.getUsers();
     setUsers(res);
   }
+  
   function newUsers(data: ICreateUser) {
     api.postUsers(data);
   }
 
   async function onSubmit(data: ICreateUser) {
    await api.putUsers(data.id as number, data);
-  
+   setLoading(true);
   }
 
   function handleSetUsetToEdit(id: string) {
     const user = users.find((user) => user.id === Number(id));
-    console.log(user)
     if (user) {
       setUserSelected(user);
       reset(user);
@@ -48,7 +50,6 @@ export const NewUser = ({ usersCreated }: Props): JSX.Element => {
         name: "",
         email: "",
         phone: "",
-        
       });
     }
   }
@@ -89,7 +90,14 @@ export const NewUser = ({ usersCreated }: Props): JSX.Element => {
             placeholder="Password"
             {...register("password")}
           />
-          <S.BtnSubmit type="submit">Create</S.BtnSubmit>
+          {!loading  &&(
+            <S.BtnSubmit type="submit" style={{height:"40px"}}>
+              <Loading />
+            </S.BtnSubmit>
+          )}
+          {loading && (
+              <S.BtnSubmit type="submit">Create</S.BtnSubmit>
+          )}
         </S.Form> )}
         {actionType === "update" && (
         <S.Form onSubmit={handleSubmit(onSubmit)}>
@@ -107,11 +115,16 @@ export const NewUser = ({ usersCreated }: Props): JSX.Element => {
           <S.Input type="text" placeholder="Name" {...register("name")} />
           <S.Input type="text" placeholder="Email" {...register("email")} />
           <S.Input type="text" placeholder="Phone" {...register("phone")} />
-          <S.BtnSubmit type="submit">Update</S.BtnSubmit>
+          {!loading  &&(
+            <S.BtnSubmit type="submit" style={{height:"40px"}}>
+              <Loading />
+            </S.BtnSubmit>
+          )}
+          {loading && (
+              <S.BtnSubmit type="submit">Update</S.BtnSubmit>
+          )}
         </S.Form>
         )}
-
-
       </S.ContainerLeft>
     </S.Container>
   );

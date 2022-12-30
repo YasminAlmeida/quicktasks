@@ -18,6 +18,7 @@ const Home = () => {
   const [loading, setLoading] = React.useState(false);
   useEffect(() => {
     handleSearch();
+    setLoading(true);
   }, []);
 
   const handleSearch = () => {
