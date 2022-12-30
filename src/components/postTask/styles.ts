@@ -8,6 +8,13 @@ export const TooltipText = styled.div`
   border-radius: 3px;
   cursor: pointer;
   font-size: 1.5rem;
+  margin-bottom: 5px;
+  @media (max-width: 600px) {
+    line-height: 40px;
+    font-size: 1.2rem;
+    width: 40px;
+    margin-bottom: 45px;
+  }
 `;
 export const TooltipBox = styled.div`
   visibility: hidden;
@@ -16,12 +23,15 @@ export const TooltipBox = styled.div`
   width: 100px;
   padding: 5px 5px;
   border-radius: 4px;
-  margin-top: 5px;
   transition: visibility 0.5s, color 0.5s, background-color 0.5s, width 0.5s,
     padding 0.5s ease-in-out;
   color: white;
   p {
     color: #fff;
+  }
+  @media (max-width: 600px) {
+    width: 50px;  
+    margin-top: -10px;
   }
 `;
 export const TooltipCard = styled.button`
@@ -38,7 +48,21 @@ export const TooltipCard = styled.button`
     width: 150px;
     padding: 8px 8px;
     border-radius: 4px;
+    @media (max-width: 600px) {
+      padding: 4px 0px;
+      width: 50px;
+    }
   }
+  @media (max-width: 600px) {
+    /* margin: 0; */
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0px 0px -15px;
+    flex-direction: column-reverse; 
+    align-items: flex-start;
+  }     
+
 `;
 export const ContainerModal = styled.div`
   height: 100vh;
@@ -64,7 +88,7 @@ export const Modal = styled.div`
   position: relative;
   opacity: 1;
   border-radius: 10px;
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     width: 350px;
   }
   @media (max-width: 500px) {
@@ -141,7 +165,7 @@ export const BtnSubmit = styled.button`
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 1rem;
-  margin-top: 20px;
+  margin-top: 20px; 
 `;
 export const Label = styled.label`
   display: block;
@@ -149,3 +173,16 @@ export const Label = styled.label`
   margin-bottom: 4px;
   margin: 8px 0 8px;
 `;
+export const BtnUser = styled.button`
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+  padding: 2px;
+  margin: 5px 0;
+  &:focus, &:hover {
+    border-color: #fea;
+    box-shadow: 0 0 0 2px #9f8fff;
+    outline: none;
+  }
+`

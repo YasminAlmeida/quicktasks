@@ -71,7 +71,7 @@ export const PostTask = ({ tasksCreated }: Props): JSX.Element => {
                         </option>
                       ))}
                     </S.Select>
-                    <button type="button"  onClick={() => navigate(`/users`)}>add</button>
+                    <S.BtnUser type="button"  onClick={() => navigate(`/users`)}>Add User</S.BtnUser>
                   </div>
                   <S.Label htmlFor="">Priority</S.Label>
                   <S.Select id="" {...register("priorities")}>
@@ -106,7 +106,7 @@ export const PostTask = ({ tasksCreated }: Props): JSX.Element => {
                     {...register("description")}
                   />
                   {!loading  &&(
-                    <S.BtnSubmit type="submit">
+                    <S.BtnSubmit type="submit" style={{height:"40px"}}>
                       <Loading />
                     </S.BtnSubmit>
                   )}
