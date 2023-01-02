@@ -64,23 +64,16 @@ export const api = {
   },
 
   //gets for the filter
-
-  getTaskByUser: async (id: number) => {
-    let response = await axiosInstance.get(`/tasks/user/${id}`);
+  getByUserAndStatusAndPriorityAndCategory: async (params: IParams) => {
+    let response = await axiosInstance.get(`/tasks/search`,{
+      params
+    });
     return response.data;
-  },
-  getTaskByCategory: async (id: number) => {
-    let response = await axiosInstance.get(`/tasks/categories/${id}`);
-    return response.data;
-  },
-  getTaskByStatus: async (id: number) => {
-    let response = await axiosInstance.get(`/tasks/status/${id}`);
-    return response.data;
-  },
-  getTaskByPriority: async (id: number) => {
-    let response = await axiosInstance.get(`/tasks/priority/${id}`);
-    return response.data;
-  }
-  
+  }  
 }
-
+export interface IParams {
+  user_id : number | null,
+  status_id : number | null, 
+  priority_id : number | null,
+  category_id : number | null
+}

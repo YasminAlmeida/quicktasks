@@ -8,64 +8,56 @@ import Loading from "../../components/loading";
 
 import { IResponseTask } from "../../types/typesInterface";
 import { ICreateTask } from "../../types/typesInterface";
-import { api } from "../../services/api";
+import { api, IParams } from "../../services/api";
 
 const Home = () => {
   const [tasks, setTasks] = React.useState<IResponseTask[]>([]);
   const [filterType, setFilterType] = React.useState("none");
-  const [filterValue, setFilterValue] = React.useState("none");
   const [tasksCreate, setTaskstasksCreate] = React.useState<ICreateTask>({} as ICreateTask);
   const [loading, setLoading] = React.useState(false);
+  const [reload, setReload] = React.useState(false);
+  const [params, setParams] = React.useState<IParams>({} as IParams);  
+  const [search, setSearch] = React.useState<IResponseTask[]>([]);
+  
+  
   useEffect(() => {
-    handleSearch();
     setLoading(true);
-  }, []);
+    getSearch()
+  }, [params]);
 
-  const handleSearch = () => {
-    if (filterType === "none") {
-      api.getTasks().then((response) => {
-        setTasks(response);
-      });
-    } else if (filterType === "users") {
-      api.getTaskByUser(+filterValue).then((response) => {
-        setTasks(response);
-      });
-    } else if (filterType === "status") {
-      api.getTaskByStatus(+filterValue).then((response) => {
-        setTasks(response);
-      });
-    } else if (filterType === "priority") {
-      api.getTaskByPriority(+filterValue).then((response) => {
-        setTasks(response);
-      });
-    }
-  };
-
-  const ResetTheFilter = () => {
+  async function getSearch(){
     setLoading(true);
-    setFilterType("none");
-    setFilterValue("none");
-    api.getTasks().then((response) => {
-      setTasks(response);
-    })
-    .finally(() => {
+    console.log(params)
+    try{
+      const res = await api.getByUserAndStatusAndPriorityAndCategory(params);
+      setTasks(res);
       setLoading(false);
-    });
+      
+    }
+    catch(err){
+      console.log(err);
+      setLoading(false);
+    }
+  }
+  const ResetTheFilter = () => {
+    setParams({} as IParams);
   }
 
   return (
     <S.HomeContainer>
       <S.ContainerTop>
-        <PostTask tasksCreated={tasksCreate} />
+        <PostTask 
+          tasksCreated={tasksCreate} 
+          setReload={setReload} 
+          reload={reload}/>
         <Filter
+          params={params}
+          setParams={setParams}
           filterType={filterType}
           setFilterType={setFilterType}
-          filterValue={filterValue}
-          setFilterValue={setFilterValue}
-          handleSearch={handleSearch}
           ResetTheFilter={ResetTheFilter}
-        />        
-      </S.ContainerTop> 
+          responseTask={search}/>
+      </S.ContainerTop>  
       {!loading && (
         <Tasks tasks={tasks} />
       )}
