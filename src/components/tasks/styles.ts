@@ -14,7 +14,6 @@ export const TasksContainer = styled.div`
     grid-template-columns: 1fr;
   }
 `;
-
 export const StatusTask = styled.p`
   margin: 0 auto 0;
 `;
@@ -29,14 +28,13 @@ export const ContainersTasks = styled.div`
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-    @media (max-width: 480px) {
+  @media (max-width: 480px) {
     grid-template-columns: 1fr;
   };
   @media (max-width: 1360px) {
     margin: 0 auto 0;
     width: 90%;
   }
-
 `;
 export const LeftContainer = styled.div`
   margin-right: 15px;

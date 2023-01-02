@@ -6,10 +6,12 @@ import { IUpdateTask } from "../../types/typesInterface";
 
 type Props = {
   tasksUpdate: IUpdateTask;
+  setReload: (value: boolean) => void;
+  reload: boolean;
 };
 
-export const PutTask = ({ tasksUpdate }: Props): JSX.Element => {
-  const [clients, setClients] = React.useState<IUpdateTask["client"][]>([]);
+export const PutTask = ({ tasksUpdate, setReload, reload }: Props): JSX.Element => {
+  const [user, setUser] = React.useState<IUpdateTask["user"][]>([]);
   const [categories, setCategories] = React.useState<IUpdateTask["category"][]>(
     []
   );
@@ -21,16 +23,16 @@ export const PutTask = ({ tasksUpdate }: Props): JSX.Element => {
   } = useForm<IUpdateTask>();
 
   React.useEffect(() => {
-    getClients();
+    getUsers();
     getCategory();
     if (tasksUpdate) {
       reset(tasksUpdate);
     }
-  }, [tasksUpdate]);
+  }, [tasksUpdate, reset]);
 
-  async function getClients() {
+  async function getUsers() {
     const res = await api.getUsers();
-    setClients(res);
+    setUser(res);
   }
 
   async function getCategory() {
@@ -45,13 +47,13 @@ export const PutTask = ({ tasksUpdate }: Props): JSX.Element => {
       <S.Form onSubmit={handleSubmit(onSubmit)}>
         <S.ContainerLeft>
           <S.Label htmlFor="">User Name</S.Label>
-          <S.Select id="" {...register("client.id")}>
-            {clients.map((client) => (
+          <S.Select id="" {...register("user.id")}>
+            {user.map((user) => (
               <option
-                key={client.id.toString() + client.name}
-                value={client.id}
+                key={user.id.toString() + user.name}
+                value={user.id}
               >
-                {client.name}
+                {user.name}
               </option>
             ))}
           </S.Select>

@@ -7,10 +7,13 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../loading";
 type Props = {
   tasksCreated: ICreateTask;
+  setReload: (value: boolean) => void;
+  reload: boolean;
 };
-export const PostTask = ({ tasksCreated }: Props): JSX.Element => {
+export const PostTask = ({ tasksCreated ,setReload,
+  reload}: Props): JSX.Element => {
   const [showModal, setShowModal] = useState(false);
-  const [clients, setClients] = React.useState<ICreateTask["client"][]>([]);
+  const [user, setUser] = React.useState<ICreateTask["user"][]>([]);
   const [categories, setCategories] = React.useState<ICreateTask["category"][]>(
     []
   );
@@ -24,22 +27,23 @@ export const PostTask = ({ tasksCreated }: Props): JSX.Element => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    getClients();
+    getuser();
     getCategory();
     if (tasksCreated) {
       reset(tasksCreated);
     }
-  }, [tasksCreated]);
-  async function getClients() {
+  }, [tasksCreated, reset]);
+  async function getuser() {
     const res = await api.getUsers();
-    setClients(res);
+    setUser(res);
   }
   async function getCategory() {
     const res = await api.getCategories();
     setCategories(res);
   }
-  function onSubmit(data: ICreateTask) {
-    api.postTasks(data);
+  async function onSubmit(data: ICreateTask) {
+  await   api.postTasks(data);
+  setReload(!reload);
     setShowModal(false);
     setLoading(true);
   }
@@ -61,13 +65,13 @@ export const PostTask = ({ tasksCreated }: Props): JSX.Element => {
                 <S.ContainerLeft>
                   <div>
                     <S.Label htmlFor="">User Name</S.Label>
-                    <S.Select id="" {...register("client.id")}>
-                      {clients.map((client) => (
+                    <S.Select id="" {...register("user.id")}>
+                      {user.map((user) => (
                         <option
-                          key={client.id.toString() + client.name}
-                          value={client.id}
+                          key={user.id.toString() + user.name}
+                          value={user.id}
                         >
-                          {client.name}
+                          {user.name}
                         </option>
                       ))}
                     </S.Select>

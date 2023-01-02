@@ -67,7 +67,7 @@ export const Tasks = ({ tasks }: Props): JSX.Element => {
                         >
                           {tasks.taskStatus}
                         </S.TextStatus>
-                        <p>{tasks.client.name}</p>
+                        <p>{tasks.user.name}</p>
                       </S.LeftContainer>
                       <div>
                         <p>{tasks.description}</p>
@@ -108,7 +108,7 @@ export const Tasks = ({ tasks }: Props): JSX.Element => {
                         >
                           {tasks.taskStatus}
                         </S.TextStatus>
-                        <p>{tasks.client.name}</p>
+                        <p>{tasks.user.name}</p>
                       </S.LeftContainer>
                       <div>
                         <p>{tasks.description}</p>
@@ -148,7 +148,7 @@ export const Tasks = ({ tasks }: Props): JSX.Element => {
                         >
                           {tasks.taskStatus}
                         </S.TextStatus>
-                        <p>{tasks.client.name}</p>
+                        <p>{tasks.user.name}</p>
                       </S.LeftContainer>
                       <div>
                         <p>{tasks.description}</p>

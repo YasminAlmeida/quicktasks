@@ -4,7 +4,7 @@ export interface IResponseTask {
     taskStatus: string,
     priorities: string,
     description: string,
-    client: {
+    user: {
         id: number,
         name: string,
         email: string,
@@ -26,7 +26,7 @@ export interface IUpdateTask{
     taskStatus: string,
     priorities: string,
     description: string,
-    client: {
+    user: {
         id: number,
         name: string,
     },
@@ -39,7 +39,7 @@ export interface ICreateTask{
     taskStatus: string,
     priorities: string,
     description: string,
-    client: {
+    user: {
         id: number,
         name: string,
     },

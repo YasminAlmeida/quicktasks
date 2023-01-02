@@ -8,17 +8,19 @@ import PutTask from "../../components/putTask";
 export const SingleTask = () => {
   const { id } = useParams();
   const [tasks, setTasks] = React.useState<IUpdateTask>({} as IUpdateTask);
+  const [reload, setReload] = React.useState(false);
+
   useEffect(() => {
     if(!id) return;
     api.getSingleTask(+id).then((response) => {
        setTasks(response);
     });
-  }, []);
+  }, [reload]);
  
   return (
       <S.Container>
         <S.Title>Edit Task</S.Title>
-        <PutTask tasksUpdate={tasks} />
+        <PutTask tasksUpdate={tasks} setReload={setReload} reload={reload}/>
       </S.Container>
   );
 };

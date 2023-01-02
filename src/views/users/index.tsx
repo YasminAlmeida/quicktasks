@@ -7,6 +7,7 @@ import {NewUser} from "../../components/newuser";
 
 export const Users = () => {
   const [user, setUser] = React.useState<ICreateUser>({} as ICreateUser);
+  const [reload, setReload] = React.useState(false);
 
   useEffect(() => {
     api.getUsers().then((response) => {
@@ -16,8 +17,8 @@ export const Users = () => {
  
   return (
     <S.Container>
-      <S.Title>Create User</S.Title>
-      <NewUser usersCreated={user}/>
+      <S.Title>User</S.Title>
+      <NewUser UsersCreated={user} setReload={setReload} reload={reload}/>
     </S.Container>
   );
 }

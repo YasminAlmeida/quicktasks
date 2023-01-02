@@ -6,10 +6,12 @@ import { api } from "../../services/api";
 import { useForm } from "react-hook-form";
 import Loading from "../loading";
 type Props = {
-  usersCreated: ICreateUser;
+  UsersCreated: ICreateUser;
+  setReload: (value: boolean) => void;
+  reload: boolean;
 };
 
-export const NewUser = ({ usersCreated }: Props): JSX.Element => {
+export const NewUser = ({ UsersCreated, setReload, reload }: Props): JSX.Element => {
   const [users, setUsers] = React.useState<ICreateUser[]>([]);
   const [actionType, setActionType] = React.useState<"create" | "update" | "list" >("create" as const);
   const [userSelected, setUserSelected] = React.useState<ICreateUser>({} as ICreateUser);
@@ -23,7 +25,7 @@ export const NewUser = ({ usersCreated }: Props): JSX.Element => {
 
   React.useEffect(() => {
     getUsers();
-  }, [usersCreated]);
+  }, [UsersCreated, reset]);
 
   async function getUsers() {
     const res = await api.getUsers();
@@ -103,12 +105,12 @@ export const NewUser = ({ usersCreated }: Props): JSX.Element => {
         <S.Form onSubmit={handleSubmit(onSubmit)}>
           <S.Select onChange={(e)=>{handleSetUsetToEdit(e.target.value)}} >
             <option value="">Select user</option>
-            {users.map((client) => (
+            {users.map((user) => (
               <option
-                key={client.id.toString() + client.name}
-                value={client.id}
+                key={user.id.toString() + user.name}
+                value={user.id}
               >
-                {client.name}
+                {user.name}
               </option>
             ))}
           </S.Select>
