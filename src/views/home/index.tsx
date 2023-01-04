@@ -23,11 +23,10 @@ const Home = () => {
   useEffect(() => {
     setLoading(true);
     getSearch()
-  }, [params]);
+  }, [params, reload]);
 
   async function getSearch(){
     setLoading(true);
-    console.log(params)
     try{
       const res = await api.getByUserAndStatusAndPriorityAndCategory(params);
       setTasks(res);
@@ -36,7 +35,7 @@ const Home = () => {
     }
     catch(err){
       console.log(err);
-      setLoading(false);
+      setLoading(true);
     }
   }
   const ResetTheFilter = () => {
@@ -59,7 +58,10 @@ const Home = () => {
           responseTask={search}/>
       </S.ContainerTop>  
       {!loading && (
-        <Tasks tasks={tasks} />
+        <Tasks 
+        tasks={tasks} 
+        setReload={setReload} 
+        reload={reload}/>
       )}
       {loading && <Loading />}
     </S.HomeContainer>

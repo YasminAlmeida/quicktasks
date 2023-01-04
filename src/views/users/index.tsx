@@ -13,12 +13,15 @@ export const Users = () => {
     api.getUsers().then((response) => {
       setUser(response);
     });
-  }, []);
+  }, [reload]);
  
   return (
     <S.Container>
       <S.Title>User</S.Title>
-      <NewUser UsersCreated={user} setReload={setReload} reload={reload}/>
+      <NewUser 
+      UsersCreated={user}
+      setReload={setReload} 
+      reload={reload}/>
     </S.Container>
   );
 }

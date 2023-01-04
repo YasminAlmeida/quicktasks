@@ -11,25 +11,34 @@ import DeleteIcon from "../../assets/delete.png";
 
 type Props = {
   tasks: IResponseTask[];
+  setReload: (value: boolean) => void;
+  reload: boolean;
 };
-function modificationOfColorDependesOfResponseTaskStatus(
-  tasks: IResponseTask
-): string {
-  if (tasks.taskStatus === "Open") {
-    return "#90be6d";
-  } else if (tasks.taskStatus === "InProgress") {
-    return "#f9ae4c";
-  } else if (tasks.taskStatus === "Closed") {
-    return "#F94144";
-  } else {
-    return "#B2B2B2";
-  }
-}
-function handleDeleteTask(id: number) {
-  api.deleteTasks(id);
-}
-export const Tasks = ({ tasks }: Props): JSX.Element => {
+
+export const Tasks = ({ tasks, setReload,
+  reload, }: Props): JSX.Element => {
   const navigate = useNavigate();
+  function modificationOfColorDependesOfResponseTaskStatus(
+    tasks: IResponseTask
+  ): string {
+    if (tasks.taskStatus === "Open") {
+      return "#90be6d";
+    } else if (tasks.taskStatus === "InProgress") {
+      return "#f9ae4c";
+    } else if (tasks.taskStatus === "Closed") {
+      return "#F94144";
+    } else {
+      return "#B2B2B2";
+    }
+  }
+  function handleDeleteTask(id: number) {
+    try{
+      api.deleteTasks(id);
+      setReload(!reload);
+    } catch(err){
+      console.log(err)
+    }
+  }
   return (
     <S.SectionContainerTask>
       <S.TasksContainer>
