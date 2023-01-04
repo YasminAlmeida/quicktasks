@@ -3,6 +3,7 @@ import * as S from "./styles";
 import { useForm } from "react-hook-form";
 import { api } from "../../services/api";
 import { IUpdateTask } from "../../types/typesInterface";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   tasksUpdate: IUpdateTask;
@@ -15,6 +16,8 @@ export const PutTask = ({ tasksUpdate, setReload, reload }: Props): JSX.Element 
   const [categories, setCategories] = React.useState<IUpdateTask["category"][]>(
     []
   );
+  const [loading, setLoading] = React.useState(false);
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -25,22 +28,46 @@ export const PutTask = ({ tasksUpdate, setReload, reload }: Props): JSX.Element 
   React.useEffect(() => {
     getUsers();
     getCategory();
+    setLoading(true);
     if (tasksUpdate) {
       reset(tasksUpdate);
     }
   }, [tasksUpdate, reset]);
 
   async function getUsers() {
-    const res = await api.getUsers();
-    setUser(res);
+    try{
+      const res = await api.getUsers();
+      setUser(res);
+      setLoading(false);
+    }
+    catch(err){
+      console.log(err);
+      setLoading(true);
+    }
   }
 
   async function getCategory() {
-    const res = await api.getCategories();
-    setCategories(res);
+    try{
+      const res = await api.getCategories();
+      setCategories(res);
+      setLoading(false);
+    }
+    catch(err){
+      console.log(err);
+      setLoading(true);
+    }
   }
-  function onSubmit(data: IUpdateTask) {
-    api.putTasks(data.id as number, data);
+  async function onSubmit(data: IUpdateTask) {
+    try{
+      await api.putTasks(data.id as number, data);
+      setReload(!reload);
+      navigate("/");
+      setLoading(false);
+    }
+    catch(err){
+      console.log(err);
+      setLoading(true);
+    }
   }
   return (
     <S.Container>
@@ -86,7 +113,12 @@ export const PutTask = ({ tasksUpdate, setReload, reload }: Props): JSX.Element 
         <S.ContainerRigth>
           <S.Label htmlFor="">Description</S.Label>
           <S.InputDescription id="description" {...register("description")} />
-          <S.BtnSubmit type="submit">Submit Edition</S.BtnSubmit>
+          {!loading ? (
+            <S.BtnSubmit type="submit" onClick={() => navigate(`/`)}>Submit Edition</S.BtnSubmit>
+          ) : (
+            <S.BtnSubmit type="submit">Loading...</S.BtnSubmit>
+          )  
+          }
         </S.ContainerRigth>
       </S.Form>
     </S.Container>

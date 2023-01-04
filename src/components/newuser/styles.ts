@@ -10,6 +10,9 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 50px;
+  @media (max-width:768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 export const Form = styled.form`
   display: grid;  
@@ -21,6 +24,19 @@ export const ContainerRigth = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  li{
+    &:focus {  
+    border-color: #fea;
+    box-shadow: 0 0 0 2px #9f8fff;
+    outline: none;
+  }
+  }
+  @media (max-width:768px) {
+    ul{
+      display: flex;
+      margin-bottom: 20px;
+    }
+  }
 `;
 export const ContainerLeft = styled.div`
   display: flex;
@@ -78,7 +94,10 @@ export const Pages = styled.p`
     background: #c2c2c2;
     cursor: pointer;
     border-radius: 4px;
-    
+  }
+  @media (max-width:768px) {
+    font-size: 1.1rem;
+    margin:10px
   }
 `;
 export const List = styled.div`
@@ -89,6 +108,29 @@ export const ContainerItems = styled.div`
 `;
 
 export const Item = styled.p`
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   margin-bottom: 5px;
+  @media (max-width:768px) {
+    font-size: 1rem;
+  }
 `;
+export const ContainerDone = styled.div`
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+
+  div{
+    background-color: #f5ecfe;
+    align-items: center;
+    border: 10px solid #f5ecfe;
+    border-radius: 4px;
+    box-shadow: 0 0 0 4px #3a0057;  
+    width: 200px;
+    height: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+`

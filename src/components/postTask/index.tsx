@@ -4,16 +4,21 @@ import { useForm } from "react-hook-form";
 import { api } from "../../services/api";
 import { ICreateTask } from "../../types/typesInterface";
 import { useNavigate } from "react-router-dom";
-import Loading from "../loading";
+
 type Props = {
   tasksCreated: ICreateTask;
   setReload: (value: boolean) => void;
   reload: boolean;
 };
-export const PostTask = ({ tasksCreated ,setReload,
-  reload}: Props): JSX.Element => {
+
+export const PostTask = ({
+  tasksCreated,
+  setReload,
+  reload,
+}: Props): JSX.Element => {
   const [showModal, setShowModal] = useState(false);
   const [user, setUser] = React.useState<ICreateTask["user"][]>([]);
+  const [task, setTask] = React.useState<ICreateTask[]>([]);
   const [categories, setCategories] = React.useState<ICreateTask["category"][]>(
     []
   );
@@ -27,26 +32,49 @@ export const PostTask = ({ tasksCreated ,setReload,
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    getuser();
+    getUser();
+    setLoading(true);
     getCategory();
     if (tasksCreated) {
       reset(tasksCreated);
     }
   }, [tasksCreated, reset]);
-  async function getuser() {
-    const res = await api.getUsers();
-    setUser(res);
+
+  async function getUser() {
+    try {
+      const res = await api.getUsers();
+      setUser(res);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(true);
+    }
   }
+
   async function getCategory() {
-    const res = await api.getCategories();
-    setCategories(res);
+    try {
+      const res = await api.getCategories();
+      setCategories(res);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(true);
+    }
   }
+
   async function onSubmit(data: ICreateTask) {
-  await   api.postTasks(data);
-  setReload(!reload);
-    setShowModal(false);
-    setLoading(true);
+    try{
+      const res = await api.postTasks(data);
+      setReload(!reload);
+      setShowModal(false);
+      setTask(res);
+      setLoading(false);
+    } catch(err){
+      console.log(err);
+      setLoading(true);
+    }
   }
+
   return (
     <>
       <S.TooltipCard onClick={() => setShowModal(true)}>
@@ -75,7 +103,9 @@ export const PostTask = ({ tasksCreated ,setReload,
                         </option>
                       ))}
                     </S.Select>
-                    <S.BtnUser type="button"  onClick={() => navigate(`/users`)}>Add User</S.BtnUser>
+                    <S.BtnUser type="button" onClick={() => navigate(`/users`)}>
+                      Add User
+                    </S.BtnUser>
                   </div>
                   <S.Label htmlFor="">Priority</S.Label>
                   <S.Select id="" {...register("priorities")}>
@@ -109,13 +139,12 @@ export const PostTask = ({ tasksCreated ,setReload,
                     id="description"
                     {...register("description")}
                   />
-                  {!loading  &&(
-                    <S.BtnSubmit type="submit" style={{height:"40px"}}>
-                      <Loading />
+                  {!loading ? (
+                    <S.BtnSubmit type="submit" onClick={() => navigate(`/`)}>
+                      Submit Edition
                     </S.BtnSubmit>
-                  )}
-                  {loading && (
-                    <S.BtnSubmit type="submit">Submit</S.BtnSubmit>
+                  ) : (
+                    <S.BtnSubmit type="submit">Loading...</S.BtnSubmit>
                   )}
                 </S.ContainerRigth>
               </S.Form>

@@ -20,11 +20,11 @@ export const api = {
   },
   postTasks: async (data: any) => {
     let response = await axiosInstance.post("/tasks", data);
-    return response;
+    return response.data;
   },
   putTasks: async (id: number, data: any) => {
-    let response = await axiosInstance.put(`/tasks`, data);
-    return response;
+    let response = await axiosInstance.put(`/tasks/${id}`, data);
+    return response.data;
   },
   deleteTasks: async (id: number) => {
     let response = await axiosInstance.delete(`/tasks/${id}`);
@@ -43,7 +43,7 @@ export const api = {
     return response;
   },
   putUsers: async (id:number, data: any) => {
-    let response = await axiosInstance.put(`/users/${id}`);
+    let response = await axiosInstance.put(`/users/${id}`, data);
     return response.data;
   },
   getCategories: async () => {

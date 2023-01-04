@@ -97,6 +97,7 @@ export const Filter = ({
             }
             value={Number(params.user_id)}
           >
+            <option value="">Select</option>
             {user.map((client) => (
               <option
                 key={client.id.toString() + client.name}
@@ -116,6 +117,7 @@ export const Filter = ({
               })
             }
           >
+            <option value="">Select</option>
             <option value={1}>Open</option>
             <option value={2}>InProgress</option>
             <option value={3}>Closed</option>
@@ -130,6 +132,7 @@ export const Filter = ({
               })
             }
           >
+            <option value="">Select</option>
             <option value={1}>Urgent</option>
             <option value={2}>Hitgh</option>
             <option value={3}>Normal</option>
@@ -145,6 +148,7 @@ export const Filter = ({
               })
             }
           >
+            <option value="">Select</option>
             {category.map((category) => (
               <option
                 key={category.id.toString() + category.name}
@@ -155,7 +159,6 @@ export const Filter = ({
             ))}
           </S.Select>
         )}
-        {/* {filterType === "none" && <S.Btn onClick={ResetTheFilter}>Reset</S.Btn>} */}
         {params !== null && <S.Btn onClick={ResetTheFilter}>Reset</S.Btn>}
 
       </S.ContainerConfigurationFIlter>
