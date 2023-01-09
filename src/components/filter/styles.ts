@@ -32,7 +32,7 @@ export const ContainerFilter = styled.section`
   flex-direction: column;
   align-items: start;
   margin-top: 30px;
-  width: 80%;
+  width: 90%;
   box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 4px;
@@ -72,7 +72,6 @@ export const Btn = styled.button`
     background-position-x: 45px;
     color: transparent;
     padding: 13px 20px;
-
   }
 `;
 export const Select = styled.select`

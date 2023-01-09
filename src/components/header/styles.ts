@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const SidebarContainer = styled.a`
   text-decoration: none;
-  max-width: 1300px;
   position: relative;
   margin-top: 20px;
   display: flex;

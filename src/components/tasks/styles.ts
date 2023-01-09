@@ -3,11 +3,14 @@ import styled from "styled-components";
 export const SectionContainerTask = styled.section`
   margin: 0 auto 0;
   margin-top: 50px;
+  max-width: 1360px;
+  @media(max-width: 782px) {
+    margin-top: 10px;
+  }
 `;
 export const TasksContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  max-width: 1360px;
   grid-gap: 40px;
   justify-items: center;
   @media (max-width: 1360px) {
@@ -30,7 +33,8 @@ export const ContainersTasks = styled.div`
   cursor: pointer;
   @media (max-width: 480px) {
     grid-template-columns: 1fr;
-  };
+    padding: 20px 20px;
+  }
   @media (max-width: 1360px) {
     margin: 0 auto 0;
     width: 90%;
@@ -38,6 +42,7 @@ export const ContainersTasks = styled.div`
 `;
 export const LeftContainer = styled.div`
   margin-right: 15px;
+  display: contents;
 `;
 export const TextStatus = styled.p`
   color: ${({ color }) => color};
@@ -53,9 +58,14 @@ export const NameCategory = styled.span`
 `;
 export const Btn = styled.button`
   border: 0;
+  box-shadow: 0 10px 30px rgb(16 30 54 / 10%);
   background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+ 
   img {
-    width: 20px;
+    height: 50px;
+    width: 50px;
   }
 `;
 export const ContainerAbsolut = styled.div`
@@ -71,9 +81,10 @@ export const DeleteIcon = styled.img`
   height: 20px;
   cursor: pointer;
   position: absolute;
-  top: 10;
   left: 0;
-  /* @media (max-width: 480px) {
-    right: 10;
-  } */
-`
+  @media (max-width: 480px) {
+    top: 0;
+    width: 15px;
+    height: 15px;
+  }
+`;

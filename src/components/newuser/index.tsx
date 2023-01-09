@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./styles";
 
 import { ICreateUser } from "../../types/typesInterface";
-import { api } from "../../services/api";
 import { useForm } from "react-hook-form";
-import { setInterval } from "timers/promises";
+import useUsers from "../../hooks/useUsers";
 
 type Props = {
   UsersCreated: ICreateUser;
@@ -17,16 +16,15 @@ export const NewUser = ({
   setReload,
   reload,
 }: Props): JSX.Element => {
-  const [users, setUsers] = React.useState<ICreateUser[]>([]);
-
-  const [actionType, setActionType] = React.useState<
-    "create" | "update" | "list"
-  >("create" as const);
-  const [userSelected, setUserSelected] = React.useState<ICreateUser>(
+  const [desable, setDesable] = useState(true);
+  const [actionType, setActionType] = useState<"create" | "update" | "list">(
+    "create" as const
+  );
+  const [userSelected, setUserSelected] = useState<ICreateUser>(
     {} as ICreateUser
   );
-  const [loading, setLoading] = React.useState(false);
-  const [sent, setSent] = React.useState(false);
+  const { users, loading, setLoading, newUsers, onSubmitFormUser, sent } =
+    useUsers();
   const {
     handleSubmit,
     register,
@@ -34,62 +32,14 @@ export const NewUser = ({
     formState: { errors },
   } = useForm<ICreateUser>();
 
-  React.useEffect(() => {
-    getUsers();
-    setLoading(true);
-    
-  }, [UsersCreated, reset]);
-
-  
-  async function getUsers() {
-    try {
-      const res = await api.getUsers();
-      setUsers(res);
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-      setLoading(true);
-    }
-  }
-
-  async function newUsers(data: ICreateUser) {
-    try {
-      await api.postUsers(data);
-      setLoading(true);
-      setReload(!reload);
-      modalSubmit();
-    } catch (err) {
-      console.log(err);
-      setLoading(true);
-    }
-  }
-
-  async function onSubmit(data: ICreateUser) {modalSubmit();
-    try {
-      await api.putUsers(data.id as number, data);
-      setLoading(true);
-      setReload(!reload);
-      modalSubmit();
-    } catch (err) {
-      console.log(err);
-      setLoading(true);
-    }
-  }
-
-  function modalSubmit(){
-    setTimeout(() => {    
-      setSent(false);
-    }, 1000);    
-    setSent(true);
-
-  }
-
   function handleSetUsetToEdit(id: string) {
     try {
       const user = users.find((user) => user.id === Number(id));
+      setDesable(false);
       if (user) {
         setUserSelected(user);
         reset(user);
+        setDesable(true);
       } else {
         setUserSelected({} as ICreateUser);
         reset({
@@ -146,28 +96,46 @@ export const NewUser = ({
         )}
         {actionType === "create" && (
           <S.Form onSubmit={handleSubmit(newUsers)}>
-            <S.Input type="text" placeholder="Name" {...register("name")} />
-            <S.Input type="text" placeholder="Email" {...register("email")} />
-            <S.Input type="text" placeholder="Phone" {...register("phone")} />
-            <S.Input type="text" placeholder="Password" {...register("password")}/>
+            <S.Input
+              type="text"
+              placeholder="Name"
+              {...register("name")}
+              required
+            />
+            <S.Input
+              type="text"
+              placeholder="Email"
+              {...register("email")}
+              required
+            />
+            <S.Input
+              type="text"
+              placeholder="Phone"
+              {...register("phone")}
+              required
+            />
+            <S.Input
+              type="text"
+              placeholder="Password"
+              {...register("password")}
+              required
+            />
             {!loading ? (
-              <>                
-              <S.BtnSubmit type="submit">Create User</S.BtnSubmit>
-              {!loading && sent===true && (
-                <S.ContainerDone>
-                  <div>
-                    Done
-                  </div>
-                </S.ContainerDone>
-              )}
-            </>
+              <>
+                <S.BtnSubmit type="submit">Create User</S.BtnSubmit>
+                {sent === true && (
+                  <S.ContainerDone>
+                    <div>Done</div>
+                  </S.ContainerDone>
+                )}
+              </>
             ) : (
               <S.BtnSubmit>Loading...</S.BtnSubmit>
             )}
           </S.Form>
         )}
         {actionType === "update" && (
-          <S.Form onSubmit={handleSubmit(onSubmit)}>
+          <S.Form onSubmit={handleSubmit(onSubmitFormUser)}>
             <S.Select
               onChange={(e) => {
                 handleSetUsetToEdit(e.target.value);
@@ -180,30 +148,58 @@ export const NewUser = ({
                 </option>
               ))}
             </S.Select>
-            <S.Input type="text" placeholder="New Name" {...register("name")} />
-            <S.Input
-              type="text"
-              placeholder="New Email"
-              {...register("email")}
-            />
-            <S.Input
-              type="text"
-              placeholder="New Phone"
-              {...register("phone")}
-            />
-            {!loading ? (
-               <>                
-               <S.BtnSubmit type="submit">Submit Edtion</S.BtnSubmit>
-               {!loading && sent===true && (
-                 <S.ContainerDone>
-                   <div>
-                     Done
-                   </div>
-                 </S.ContainerDone>
-               )}
-             </>
+            {desable === true ? (
+              <>
+                <S.Input
+                  type="text"
+                  placeholder="New Name"
+                  {...register("name")}
+                />
+                <S.Input
+                  type="text"
+                  placeholder="New Email"
+                  {...register("email")}
+                />
+                <S.Input
+                  type="text"
+                  placeholder="New Phone"
+                  {...register("phone")}
+                />
+                {!loading ? (
+                  <>
+                    <S.BtnSubmit type="submit">Submit Edtion</S.BtnSubmit>
+                    {sent === true && (
+                      <S.ContainerDone>
+                        <div>Done</div>
+                      </S.ContainerDone>
+                    )}
+                  </>
+                ) : (
+                  <S.BtnSubmit>Loading...</S.BtnSubmit>
+                )}
+              </>
             ) : (
-              <S.BtnSubmit>Loading...</S.BtnSubmit>
+              <>
+                <S.Input
+                  disabled
+                  type="text"
+                  placeholder="New Name"
+                  value=""
+                />
+                <S.Input
+                  disabled
+                  type="text"
+                  placeholder="New Email"
+                  value=""
+                />
+                <S.Input
+                  disabled
+                  type="text"
+                  placeholder="New Phone"
+                  value=""
+                />
+                  <S.BtnSubmit disabled>Loading...</S.BtnSubmit>      
+              </>
             )}
           </S.Form>
         )}

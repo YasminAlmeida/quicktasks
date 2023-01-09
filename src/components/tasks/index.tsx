@@ -2,13 +2,13 @@ import React from "react";
 import * as S from "./styles";
 import { useNavigate } from "react-router-dom";
 
-import { api } from "../../services/api";
 import { IResponseTask } from "../../types/typesInterface";
 
 import Dots from "../../assets/dots.svg";
-import Tool from "../../assets/tool.gif";
 import DeleteIcon from "../../assets/delete.png";
+import EditIcon from "../../assets/pen.png";
 
+import useTasks from "../../hooks/useTasks";
 type Props = {
   tasks: IResponseTask[];
   setReload: (value: boolean) => void;
@@ -17,7 +17,10 @@ type Props = {
 
 export const Tasks = ({ tasks, setReload,
   reload, }: Props): JSX.Element => {
+  const { handleDeleteTask } = useTasks();
+  const randomNumber = getRandomNumber();
   const navigate = useNavigate();
+  
   function modificationOfColorDependesOfResponseTaskStatus(
     tasks: IResponseTask
   ): string {
@@ -31,144 +34,153 @@ export const Tasks = ({ tasks, setReload,
       return "#B2B2B2";
     }
   }
-  function handleDeleteTask(id: number) {
-    try{
-      api.deleteTasks(id);
-      setReload(!reload);
-    } catch(err){
-      console.log(err)
-    }
+  function getRandomNumber() {
+    return Math.floor(Math.random() * (36 - 2 + 1) + 2);
   }
+
+  const deleteTask = async (id: number) => {
+    await handleDeleteTask(id);
+    setReload(!reload);
+  }
+  
   return (
     <S.SectionContainerTask>
       <S.TasksContainer>
         {tasks.map((tasks) => {
           return (
-            <section>
+            <section key={tasks.id.toString()+randomNumber}>
               <div>
                 {tasks.category.id === 1 && (
-                  <>
-                    <S.ContainersTasks
-                      onClick={() => navigate(`/task/${tasks.id}`)}
-                      key={tasks.id.toString()}
-                      style={{
-                        backgroundImage: `url(${Dots})`,
-                        objectFit: "cover",
-                      }}
-                    > <S.DeleteIcon
+                  <S.ContainersTasks
+                    key={tasks.moment.toString()+randomNumber}
+                    style={{
+                      backgroundImage: `url(${Dots})`,
+                      objectFit: "cover",
+                    }}
+                  > <S.DeleteIcon
                       src={DeleteIcon}
                       onClick={() => {
-                        handleDeleteTask(tasks.id);
+                        deleteTask(tasks.id);
                       }}
                     />
-                      <S.ContainerAbsolut>
-                        <S.NameCategory>{tasks.category.name}</S.NameCategory>
-                        <S.Btn>
-                          <img src={Tool} alt="tool" />
-                        </S.Btn>
-                      </S.ContainerAbsolut>
+               
+                    <S.ContainerAbsolut>       
+                      <S.NameCategory>{tasks.category.name}</S.NameCategory>
+                      <S.Btn>
+                        <img src={EditIcon} alt="tool" />
+                      </S.Btn>
+                    </S.ContainerAbsolut>
 
-                      <S.LeftContainer>
-                        <S.TextStatus
-                          color={modificationOfColorDependesOfResponseTaskStatus(
-                            tasks
-                          )}
-                        >
-                          {tasks.taskStatus}
-                        </S.TextStatus>
-                        <p>{tasks.user.name}</p>
-                      </S.LeftContainer>
+                    <S.LeftContainer
+                       onClick={() => navigate(`/task/${tasks.id}`)}>
                       <div>
-                        <p>{tasks.description}</p>
+                        <S.TextStatus
+                        color={modificationOfColorDependesOfResponseTaskStatus(
+                          tasks
+                        )}
+                      >
+                        {tasks.taskStatus}
+                      </S.TextStatus>
+                      <p>{tasks.user.name}</p>
                       </div>
-                    </S.ContainersTasks>
-                  </>
+                      
+                    <div>
+                      <p>{tasks.description}</p>
+                    </div>
+                    </S.LeftContainer>
+                  </S.ContainersTasks>
                 )}
               </div>
 
               <div>
                 {tasks.category.id === 2 && (
-                  <>
-                    <S.ContainersTasks
-                      onClick={() => navigate(`/task/${tasks.id}`)}
-                      key={tasks.id.toString()}
-                      style={{
-                        backgroundImage: `url(${Dots})`,
-                        objectFit: "cover",
-                      }}
-                    >
-                      <S.DeleteIcon
+                  <S.ContainersTasks
+                    key={tasks.moment.toString()+randomNumber}
+                    style={{
+                      backgroundImage: `url(${Dots})`,
+                      objectFit: "cover",
+                    }}
+                  >
+                    <S.DeleteIcon
                       src={DeleteIcon}
                       onClick={() => {
-                        handleDeleteTask(tasks.id);
+                        deleteTask(tasks.id);
                       }}
                     />
-                      <S.ContainerAbsolut>
-                        <S.NameCategory>{tasks.category.name}</S.NameCategory>
-                        <S.Btn>
-                          <img src={Tool} alt="tool" />
-                        </S.Btn>
-                      </S.ContainerAbsolut>
-                      <S.LeftContainer>
-                        <S.TextStatus
-                          color={modificationOfColorDependesOfResponseTaskStatus(
-                            tasks
-                          )}
-                        >
-                          {tasks.taskStatus}
-                        </S.TextStatus>
-                        <p>{tasks.user.name}</p>
-                      </S.LeftContainer>
+                    <S.ContainerAbsolut
+                      onClick={() => navigate(`/task/${tasks.id}`)}
+                    >
+                      <S.NameCategory>{tasks.category.name}</S.NameCategory>
+                      <S.Btn>
+                        <img src={EditIcon} alt="tool" />
+                      </S.Btn>
+                    </S.ContainerAbsolut>
+                    <S.LeftContainer
+                       onClick={() => navigate(`/task/${tasks.id}`)}>
                       <div>
-                        <p>{tasks.description}</p>
+                        <S.TextStatus
+                        color={modificationOfColorDependesOfResponseTaskStatus(
+                          tasks
+                        )}
+                      >
+                        {tasks.taskStatus}
+                      </S.TextStatus>
+                      <p>{tasks.user.name}</p>
                       </div>
-                    </S.ContainersTasks>
-                  </>
+                      
+                    <div>
+                      <p>{tasks.description}</p>
+                    </div>
+                    </S.LeftContainer>
+                  </S.ContainersTasks>
+
                 )}
               </div>
 
               <div>
                 {tasks.category.id === 3 && (
-                  <>
-                    <S.ContainersTasks
-                      onClick={() => navigate(`/task/${tasks.id}`)}
-                      key={tasks.id.toString()}
-                      style={{
-                        backgroundImage: `url(${Dots})`,
-                        objectFit: "cover",
-                      }}
-                    > <S.DeleteIcon
+                  <S.ContainersTasks
+                    key={tasks.moment.toString()+randomNumber}
+                    style={{
+                      backgroundImage: `url(${Dots})`,
+                      objectFit: "cover",
+                    }}
+                  > <S.DeleteIcon
                       src={DeleteIcon}
                       onClick={() => {
-                        handleDeleteTask(tasks.id);
+                        deleteTask(tasks.id);
                       }}
                     />
-                      <S.ContainerAbsolut>
-                        <S.NameCategory>{tasks.category.name}</S.NameCategory>
-                        <S.Btn>
-                          <img src={Tool} alt="tool" />
-                        </S.Btn>
-                      </S.ContainerAbsolut>
-                      <S.LeftContainer>
-                        <S.TextStatus
-                          color={modificationOfColorDependesOfResponseTaskStatus(
-                            tasks
-                          )}
-                        >
-                          {tasks.taskStatus}
-                        </S.TextStatus>
-                        <p>{tasks.user.name}</p>
-                      </S.LeftContainer>
+                    <S.ContainerAbsolut
+                      onClick={() => navigate(`/task/${tasks.id}`)}
+                    >
+                      <S.NameCategory>{tasks.category.name}</S.NameCategory>
+                      <S.Btn>
+                        <img src={EditIcon} alt="tool" />
+                      </S.Btn>
+                    </S.ContainerAbsolut>
+                    <S.LeftContainer
+                       onClick={() => navigate(`/task/${tasks.id}`)}>
                       <div>
-                        <p>{tasks.description}</p>
+                        <S.TextStatus
+                        color={modificationOfColorDependesOfResponseTaskStatus(
+                          tasks
+                        )}
+                      >
+                        {tasks.taskStatus}
+                      </S.TextStatus>
+                      <p>{tasks.user.name}</p>
                       </div>
-                    </S.ContainersTasks>
-                  </>
+                      
+                    <div>
+                      <p>{tasks.description}</p>
+                    </div>
+                    </S.LeftContainer>
+                  </S.ContainersTasks>
                 )}
               </div>
             </section>
-          );
-        })}
+          );})}
       </S.TasksContainer>
     </S.SectionContainerTask>
   );

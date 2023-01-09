@@ -20,7 +20,7 @@ export const TooltipBox = styled.div`
   visibility: hidden;
   color: transparent;
   background-color: transparent;
-  width: 100px;
+  /* width: 100px; */
   padding: 5px 5px;
   border-radius: 4px;
   transition: visibility 0.5s, color 0.5s, background-color 0.5s, width 0.5s,
@@ -35,12 +35,16 @@ export const TooltipBox = styled.div`
   }
 `;
 export const TooltipCard = styled.button`
-  margin: 10px 10px -50px;
+  margin: 10px 0px -20px;
   cursor: 0;
   background-color: none;
   background: none;
   border: 0;
-  position: absolute;
+  height: 50px;
+  width: 50px;
+  margin-top: 15px;
+  /* position: absolute;
+  z-index: 1; */
   & ${TooltipText}:hover + ${TooltipBox} {
     visibility: visible;
     color: #fff;
@@ -48,19 +52,19 @@ export const TooltipCard = styled.button`
     width: 150px;
     padding: 8px 8px;
     border-radius: 4px;
-    @media (max-width: 600px) {
+    /* @media (max-width: 600px) { */
       padding: 4px 0px;
       width: 50px;
-    }
+    /* } */
   }
   @media (max-width: 600px) {
-    /* margin: 0; */
     position: relative;
     display: flex;
     align-items: center;
-    margin: 0px 0px -15px;
+    margin: 0px 0px 50px;
     flex-direction: column-reverse; 
     align-items: flex-start;
+    justify-content: flex-end;
   }     
 
 `;
@@ -109,7 +113,6 @@ export const BtnModal = styled.button`
   margin: -25px;
   cursor: pointer;
 `
-
 export const Form = styled.form`
   display: grid;  
   margin-top: 50px;
@@ -165,7 +168,10 @@ export const BtnSubmit = styled.button`
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 1rem;
-  margin-top: 20px; 
+  /* margin-top: -200px;  */
+  /* @media(max-width: 600px) {
+    margin-top: -50px;
+  } */
 `;
 export const Label = styled.label`
   display: block;

@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import * as S from "./styles";
 
-import { api, IParams } from "../../services/api";
+import { IParams } from "../../services/api";
 import { IResponseTask } from "../../types/typesInterface";
+import useUsers from "../../hooks/useUsers";
 
 type IProps = {
   filterType: string;
@@ -21,38 +22,11 @@ export const Filter = ({
   setParams,
   ResetTheFilter,
 }: IProps): JSX.Element => {
-  const [user, setUser] = React.useState<IResponseTask["user"][]>([]);
-  const [status, setStatus] = React.useState<IResponseTask["taskStatus"][]>([]);
-  const [priorities, setPriority] = React.useState<
-    IResponseTask["priorities"][]
-  >([]);
-  const [category, setCategory] = React.useState<IResponseTask["category"][]>(
-    []
-  );
+  const {users, category, priorities, status} = useUsers();
 
-  React.useEffect(() => {
-    getuser();
-    getStatus();
-    getPriority();
-    getCategory();
+  useEffect(() => {
   }, [responseTask]);
 
-  async function getuser() {
-    const res = await api.getUsers();
-    setUser(res);
-  }
-  async function getStatus() {
-    const res = await api.getTasks();
-    setStatus(res.taskStatus);
-  }
-  async function getPriority() {
-    const res = await api.getTasks();
-    setPriority(res.priorities);
-  }
-  async function getCategory() {
-    const res = await api.getCategories();
-    setCategory(res);
-  }
   const DeleteInformation = () => {
     setFilterType("none");
     if (params !== null) {
@@ -63,7 +37,7 @@ export const Filter = ({
         setParams({ ...params, user_id: null });
       } else if (filterType === "status") {
         setParams({ ...params, status_id: null });
-      } else if (filterType === "priority") {
+      } else if (filterType === "priorities") {
         setParams({ ...params, priority_id: null });
       } else if (filterType === "category") {
         setParams({ ...params, category_id: null });
@@ -83,7 +57,7 @@ export const Filter = ({
           <option value={"none"}>None</option>
           <option value={"user"}>User</option>
           <option value={"status"}>Status</option>
-          <option value={"priority"}>Priorities</option>
+          <option value={"priorities"}>Priorities</option>
           <option value={"category"}>Category</option>
         </S.Select>
 
@@ -98,12 +72,12 @@ export const Filter = ({
             value={Number(params.user_id)}
           >
             <option value="">Select</option>
-            {user.map((client) => (
+            {users.map((user) => (
               <option
-                key={client.id.toString() + client.name}
-                value={client.id}
+                key={user.id.toString() + user.name}
+                value={user.id}
               >
-                {client.name}
+                {user.name}
               </option>
             ))}
           </S.Select>
@@ -123,7 +97,7 @@ export const Filter = ({
             <option value={3}>Closed</option>
           </S.Select>
         )}
-        {filterType === "priority" && (
+        {filterType === "priorities" && (
           <S.Select
             onChange={(e) =>
               setParams({
@@ -179,7 +153,7 @@ export const Filter = ({
         )}
         {Number(params.priority_id) > 0 && params.priority_id !== null && (
           <div>
-            Priority
+            priority
             <p onClick={DeleteInformation}>X</p>
           </div>
         )}

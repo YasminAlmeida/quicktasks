@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 
 import Tasks from "../../components/tasks";
@@ -11,13 +11,13 @@ import { ICreateTask } from "../../types/typesInterface";
 import { api, IParams } from "../../services/api";
 
 const Home = () => {
-  const [tasks, setTasks] = React.useState<IResponseTask[]>([]);
-  const [filterType, setFilterType] = React.useState("none");
-  const [tasksCreate, setTaskstasksCreate] = React.useState<ICreateTask>({} as ICreateTask);
-  const [loading, setLoading] = React.useState(false);
-  const [reload, setReload] = React.useState(false);
-  const [params, setParams] = React.useState<IParams>({} as IParams);  
-  const [search, setSearch] = React.useState<IResponseTask[]>([]);
+  const [tasks, setTasks] = useState<IResponseTask[]>([]);
+  const [filterType, setFilterType] = useState("none");
+  const [tasksCreate, setTaskstasksCreate] = useState<ICreateTask>({} as ICreateTask);
+  const [loading, setLoading] = useState(false);
+  const [reload, setReload] = useState(false);
+  const [params, setParams] = useState<IParams>({} as IParams);  
+  const [search, setSearch] = useState<IResponseTask[]>([]);
   
   
   useEffect(() => {

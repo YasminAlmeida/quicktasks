@@ -62,7 +62,14 @@ export const api = {
     let response = await axiosInstance.put(`/categories/${id}`, data);
     return response;
   },
-
+  getStatus: async () =>{
+    let response = await axiosInstance.get(`/tasks/search?/status_id`);
+    return response.data;
+  },
+  getPriority: async () =>{
+    let response = await axiosInstance.get(`/tasks/search?/priority_id`);
+    return response.data;
+  },
   //gets for the filter
   getByUserAndStatusAndPriorityAndCategory: async (params: IParams) => {
     let response = await axiosInstance.get(`/tasks/search`,{

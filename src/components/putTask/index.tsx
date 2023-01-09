@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import * as S from "./styles";
 import { useForm } from "react-hook-form";
-import { api } from "../../services/api";
 import { IUpdateTask } from "../../types/typesInterface";
 import { useNavigate } from "react-router-dom";
+import useTasks from "../../hooks/useTasks";
 
 type Props = {
   tasksUpdate: IUpdateTask;
@@ -12,11 +12,7 @@ type Props = {
 };
 
 export const PutTask = ({ tasksUpdate, setReload, reload }: Props): JSX.Element => {
-  const [user, setUser] = React.useState<IUpdateTask["user"][]>([]);
-  const [categories, setCategories] = React.useState<IUpdateTask["category"][]>(
-    []
-  );
-  const [loading, setLoading] = React.useState(false);
+  const {user, categories, loading, onSubmiEdittFormTask} = useTasks();
   const navigate = useNavigate();
   const {
     handleSubmit,
@@ -25,49 +21,15 @@ export const PutTask = ({ tasksUpdate, setReload, reload }: Props): JSX.Element 
     formState: { errors },
   } = useForm<IUpdateTask>();
 
-  React.useEffect(() => {
-    getUsers();
-    getCategory();
-    setLoading(true);
+  useEffect(() => {
     if (tasksUpdate) {
       reset(tasksUpdate);
     }
   }, [tasksUpdate, reset]);
-
-  async function getUsers() {
-    try{
-      const res = await api.getUsers();
-      setUser(res);
-      setLoading(false);
-    }
-    catch(err){
-      console.log(err);
-      setLoading(true);
-    }
-  }
-
-  async function getCategory() {
-    try{
-      const res = await api.getCategories();
-      setCategories(res);
-      setLoading(false);
-    }
-    catch(err){
-      console.log(err);
-      setLoading(true);
-    }
-  }
-  async function onSubmit(data: IUpdateTask) {
-    try{
-      await api.putTasks(data.id as number, data);
-      setReload(!reload);
-      navigate("/");
-      setLoading(false);
-    }
-    catch(err){
-      console.log(err);
-      setLoading(true);
-    }
+  
+  const onSubmit = async (data: IUpdateTask) => {
+    await onSubmiEdittFormTask(data);
+    setReload(!reload);
   }
   return (
     <S.Container>
@@ -114,9 +76,9 @@ export const PutTask = ({ tasksUpdate, setReload, reload }: Props): JSX.Element 
           <S.Label htmlFor="">Description</S.Label>
           <S.InputDescription id="description" {...register("description")} />
           {!loading ? (
-            <S.BtnSubmit type="submit" onClick={() => navigate(`/`)}>Submit Edition</S.BtnSubmit>
+            <S.BtnSubmit type="submit" >Submit Edition</S.BtnSubmit>
           ) : (
-            <S.BtnSubmit type="submit">Loading...</S.BtnSubmit>
+            <S.BtnSubmit >Loading...</S.BtnSubmit>
           )  
           }
         </S.ContainerRigth>
