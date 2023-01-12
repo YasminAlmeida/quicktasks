@@ -71,7 +71,7 @@ export const api = {
     return response.data;
   },
   //gets for the filter
-  getByUserAndStatusAndPriorityAndCategory: async (params: IParams) => {
+  getByUserAndStatusAndPriorityAndCategory: async (params?: IParams) => {
     let response = await axiosInstance.get(`/tasks/search`,{
       params
     });

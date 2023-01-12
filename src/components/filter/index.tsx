@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 
 import { IParams } from "../../services/api";
@@ -22,30 +22,32 @@ export const Filter = ({
   setParams,
   ResetTheFilter,
 }: IProps): JSX.Element => {
-  const {users, category, priorities, status} = useUsers();
+  const { users, category, priorities, status } = useUsers();
 
-  useEffect(() => {
-  }, [responseTask]);
+  useEffect(() => { }, [responseTask]);
 
   const DeleteInformation = () => {
     setFilterType("none");
     if (params !== null) {
       if (filterType === "none") {
         setParams({ ...params });
-      }
-      else if(filterType === "user") {
-        setParams({ ...params, user_id: null });
-      } else if (filterType === "status") {
+      } 
+      if(params.status_id ) {
         setParams({ ...params, status_id: null });
-      } else if (filterType === "priorities") {
+      }
+      if(params.user_id ) {
+        setParams({ ...params, user_id: null });
+      }
+      if(params.priority_id) {
         setParams({ ...params, priority_id: null });
-      } else if (filterType === "category") {
+      }
+      if(params.category_id ) {
         setParams({ ...params, category_id: null });
       }
-      console.log(params)
-    } else {
+    }else {
       ResetTheFilter();
     }
+    console.log(params);
   };
   return (
     <S.ContainerFilter>
@@ -69,14 +71,10 @@ export const Filter = ({
                 user_id: Number(e.target.value),
               })
             }
-            value={Number(params.user_id)}
           >
             <option value="">Select</option>
             {users.map((user) => (
-              <option
-                key={user.id.toString() + user.name}
-                value={user.id}
-              >
+              <option key={user.id.toString() + user.name} value={user.id}>
                 {user.name}
               </option>
             ))}
@@ -108,7 +106,7 @@ export const Filter = ({
           >
             <option value="">Select</option>
             <option value={1}>Urgent</option>
-            <option value={2}>Hitgh</option>
+            <option value={2}>High</option>
             <option value={3}>Normal</option>
             <option value={4}>Low</option>
           </S.Select>
@@ -134,7 +132,6 @@ export const Filter = ({
           </S.Select>
         )}
         {params !== null && <S.Btn onClick={ResetTheFilter}>Reset</S.Btn>}
-
       </S.ContainerConfigurationFIlter>
 
       <S.ResultOfFilter>

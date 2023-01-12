@@ -20,7 +20,6 @@ export const TooltipBox = styled.div`
   visibility: hidden;
   color: transparent;
   background-color: transparent;
-  /* width: 100px; */
   padding: 5px 5px;
   border-radius: 4px;
   transition: visibility 0.5s, color 0.5s, background-color 0.5s, width 0.5s,
@@ -43,8 +42,6 @@ export const TooltipCard = styled.button`
   height: 50px;
   width: 50px;
   margin-top: 15px;
-  /* position: absolute;
-  z-index: 1; */
   & ${TooltipText}:hover + ${TooltipBox} {
     visibility: visible;
     color: #fff;
@@ -52,10 +49,8 @@ export const TooltipCard = styled.button`
     width: 150px;
     padding: 8px 8px;
     border-radius: 4px;
-    /* @media (max-width: 600px) { */
-      padding: 4px 0px;
-      width: 50px;
-    /* } */
+    padding: 4px 0px;
+    width: 50px;
   }
   @media (max-width: 600px) {
     position: relative;
@@ -168,10 +163,6 @@ export const BtnSubmit = styled.button`
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 1rem;
-  /* margin-top: -200px;  */
-  /* @media(max-width: 600px) {
-    margin-top: -50px;
-  } */
 `;
 export const Label = styled.label`
   display: block;

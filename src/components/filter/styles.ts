@@ -37,6 +37,7 @@ export const ContainerFilter = styled.section`
   border: 2px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
+  min-width: 220px;
   background-color: white;
   background-image: url(${Searchicon});
   background-position: 5px 10px;

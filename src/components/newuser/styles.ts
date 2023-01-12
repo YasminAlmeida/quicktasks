@@ -19,6 +19,7 @@ export const Form = styled.form`
   grid-template-columns: 1fr;
   width: 80%;
   gap: 20px;
+  text-align: end;
 `;
 export const ContainerRigth = styled.div`
   display: flex;
@@ -101,10 +102,30 @@ export const Pages = styled.p`
   }
 `;
 export const List = styled.div`
+display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 80%;
+  gap: 20px;
+  margin: 0 auto 0;
+  justify-items: stretch;
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+  h3 {
+    text-align: start;
+    grid-column: 1/-1;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+    @media (max-width: 768px) {
+      text-align: end;
+    }
+  }
 `;
 
 export const ContainerItems = styled.div`
-  margin: 20px;
+    display: flex;
+  flex-direction: column;
+  gap: 5px;
 `;
 
 export const Item = styled.p`

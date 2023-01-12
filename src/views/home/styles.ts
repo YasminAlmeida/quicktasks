@@ -18,3 +18,13 @@ export const ContainerTop = styled.div`
     justify-content: center;
   }
 `;
+export const COntainerNotFOund = styled.div`
+  border-radius: 0 5px 5px 0;
+  background: #ffffff;
+  max-width: 1360px;
+  margin: 0 auto 0;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  display: flex;
+`

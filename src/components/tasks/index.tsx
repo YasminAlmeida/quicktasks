@@ -82,6 +82,7 @@ export const Tasks = ({ tasks, setReload,
                         {tasks.taskStatus}
                       </S.TextStatus>
                       <p>{tasks.user.name}</p>
+                      <p>{tasks.priorities.toLocaleLowerCase()}</p>
                       </div>
                       
                     <div>
@@ -126,8 +127,8 @@ export const Tasks = ({ tasks, setReload,
                         {tasks.taskStatus}
                       </S.TextStatus>
                       <p>{tasks.user.name}</p>
+                      <p>{tasks.priorities.toLocaleLowerCase()}</p>
                       </div>
-                      
                     <div>
                       <p>{tasks.description}</p>
                     </div>
@@ -170,6 +171,7 @@ export const Tasks = ({ tasks, setReload,
                         {tasks.taskStatus}
                       </S.TextStatus>
                       <p>{tasks.user.name}</p>
+                      <p>{tasks.priorities.toLocaleLowerCase()}</p>
                       </div>
                       
                     <div>

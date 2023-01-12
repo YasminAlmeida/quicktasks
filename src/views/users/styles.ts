@@ -17,3 +17,11 @@ export const Title = styled.h1`
     border-radius: 0.2rem;
   }
 `
+export const Arrow = styled.img`
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  position: absolute;
+  top: 73px;
+  right: 0;
+`;

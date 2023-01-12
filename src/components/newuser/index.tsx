@@ -85,8 +85,9 @@ export const NewUser = ({
       <S.ContainerLeft>
         {actionType === "list" && (
           <S.List>
-            {users.map((user) => (
-              <S.ContainerItems>
+             <h3>List</h3>
+            {users.map((user, index) => (
+              <S.ContainerItems key={index}>
                 <S.Item>User: {user.name}</S.Item>
                 <S.Item>Email: {user.email}</S.Item>
                 <S.Item>Phone: {user.phone}</S.Item>
@@ -96,6 +97,7 @@ export const NewUser = ({
         )}
         {actionType === "create" && (
           <S.Form onSubmit={handleSubmit(newUsers)}>
+            <h3>Create</h3>
             <S.Input
               type="text"
               placeholder="Name"
@@ -136,6 +138,7 @@ export const NewUser = ({
         )}
         {actionType === "update" && (
           <S.Form onSubmit={handleSubmit(onSubmitFormUser)}>
+             <h3>Update</h3>
             <S.Select
               onChange={(e) => {
                 handleSetUsetToEdit(e.target.value);
