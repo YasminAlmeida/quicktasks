@@ -15,8 +15,6 @@ export const useUsers = () => {
 
   useEffect(() => {
     getUsers();
-    getPriority();
-    getStatus();
     getCategory()
   }, []);
 
@@ -30,29 +28,6 @@ export const useUsers = () => {
       console.log(err);
       setLoading(true);
     }
-  }
-
-  async function getStatus () {
-    try{
-      setLoading(true);
-      const res = await api.getStatus();
-      setStatus(res);
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-      setLoading(true);
-    }
- }
-  async function getPriority() {
-  try{
-    setLoading(true);
-    const res = await api.getPriority();
-    setPriority(res);
-    setLoading(false);
-  } catch (err) {
-    console.log(err);
-    setLoading(true);
-  }
   }
   async function getCategory() {
     try{
@@ -69,10 +44,17 @@ export const useUsers = () => {
   async function newUsers(data: ICreateUser) {
     try {
       setLoading(true);
-      await api.postUsers(data);
-      getUsers();
-      modalSubmit();
-      setLoading(false);
+      getUsers().finally(() => {
+        if (users.some(user => user.email === data.email)) {
+          console.error("email já cadastrado");
+          alert("Email já cadastrado");
+        }
+        else {
+          api.postUsers(data);
+          getUsers();
+          modalSubmit();
+        }
+      });
     } catch (err) {
       console.log(err);
       setLoading(true);
