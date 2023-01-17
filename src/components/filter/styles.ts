@@ -1,14 +1,17 @@
 import styled from "styled-components";
 import Searchicon from "../../assets/search.png";
 import Reset from "../../assets/reset.png";
+
 export const ContainerConfigurationFIlter = styled.section`
+  display: flex;
 `
 export const ResultOfFilter = styled.div`
   display: flex;
-  margin-top: 10px;
+  margin-top: 25px;
   align-items: center;
   position: absolute;
   top: 35px;
+  margin-right: 40px;
   div{
     display: flex;  
     margin: 5px;
@@ -42,11 +45,11 @@ export const ContainerFilter = styled.section`
   background-image: url(${Searchicon});
   background-position: 5px 10px;
   background-repeat: no-repeat;
-  padding: 10px 20px 12px 40px;
+  padding: 5px 0px 5px 33px;
   position: relative;
   @media (max-width: 768px) {
     background-image: none;
-    padding: 10px 20px 12px 5px;
+    padding: 6px 20px 6px 10px;
   }
   @media (max-width: 600px) {
     margin: 0;
@@ -58,7 +61,7 @@ export const Btn = styled.button`
   border: none;
   color: #000000;
   font-size: 1.008rem;
-  padding: 13px 20px;
+  padding: 15px 20px;
   text-decoration: none;
   opacity: 0.7;
   cursor: pointer;
@@ -76,11 +79,17 @@ export const Btn = styled.button`
   }
 `;
 export const Select = styled.select`
-  border: none;
+  min-height: 38px;
   background-color: white;
   font-size: 1.1rem;
   cursor: pointer;
   margin-right: 5px;
+  background-color: hsl(0, 0%, 100%);
+    border-color: hsl(0, 0%, 80%);
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
   &:focus {  
     border-color: #fea;
     box-shadow: 0 0 0 2px #9f8fff;
